@@ -77,7 +77,7 @@ Hematocrit response towards OAH & successful parturition conditions vs ambient &
 
 **Sodium: Na+**
 
-Sodium response to OAH stress compared to ambient treatment: I suspect internal blood sodium concentrations to increase in response to OAH stress. This is suspected due to the previous studies on acid secretion and NA+ absorption proposed mechanisms (Evans et al. 2005).
+Sodium response to OAH stress compared to ambient treatment: I suspect internal blood sodium concentrations to increase in response to OAH stress. This is suspected due to the previous studies on acid secretion associated with NA+ absorption (Evans et al. 2005).
 
 Sodium response to atresia compared to successful parturition: This depends on how pregnancy effects natural acid-base and osmoregulatory ion balance. Furthure investigation would be required to assess this potentially confounding idea. 
 
@@ -95,11 +95,11 @@ Potassium response towards OAH & atresia conditions vs ambient & successful part
 
 **Chloride: Cl-**
 
-Chloride response to OAH stress compared to ambient treatment:
+Chloride response to OAH stress compared to ambient treatment: If NA+/Cl- transport are uncoupled due to low pH (as a longer term, acclimataory response) then chloride concentrations may not change (or be directly associated with suspected changes in sodium concentrations).
 
-Chloride response to atresia compared to successful parturition:
+Chloride response to atresia compared to successful parturition: It is unknown how pregnancy will effect internal chloride ion concentrations. 
 
-Chloride response towards OAH & atresia conditions vs ambient & successful parturition:
+Chloride response towards OAH & atresia conditions vs ambient & successful parturition: It is unknown how the interactive effects of OAH treatment and parturition would alter internal chloride ion concentrations. 
 
 
 **Calcium: Ca+2**
