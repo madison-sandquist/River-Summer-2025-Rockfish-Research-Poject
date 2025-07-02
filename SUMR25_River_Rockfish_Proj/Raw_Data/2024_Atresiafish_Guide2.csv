@@ -1,0 +1,66 @@
+﻿Date of processing,Tank of Processing,Last known treatment,Ambient or OAH,Pregnant or Atresia,Pregnancy Goodness ,Fish ID,Notes
+3/29/2024,G4,Ambient,Ambient,Atresia,N/A,97824,
+3/29/2024,G4,Ambient,Ambient,Atresia,N/A,97827,
+3/29/2024,G4,Ambient,Ambient,Atresia,N/A,777B1,
+3/29/2024,G4,Ambient,Ambient,Atresia,N/A,9782D,
+3/29/2024,A4,Ambient,Ambient,Atresia,N/A,97838,
+3/29/2024,A4,Ambient,Ambient,Atresia,N/A,977F9,
+3/29/2024,A4,Ambient,Ambient,Atresia,N/A,97830,
+3/29/2024,A4,Ambient,Ambient,Atresia,N/A,97812,
+3/29/2024,R2,Ambient,Ambient,Atresia,N/A,97823,
+3/29/2024,R2,Ambient,Ambient,Atresia,N/A,97836,
+3/29/2024,R2,Ambient,Ambient,Atresia,N/A,9782A,
+3/29/2024,R2,Ambient,Ambient,Atresia,N/A,97822,
+4/1/2024,P2,OAH,OAH,Atresia,N/A,977F0,
+4/1/2024,P2,OAH,OAH,Atresia,N/A,9784D,
+4/1/2024,P2,OAH,OAH,Atresia,N/A,97805,
+4/1/2024,P2,OAH,OAH,Atresia,N/A,9783A,
+4/1/2024,X1,OAH,OAH,Atresia,N/A,97841,
+4/1/2024,X1,OAH,OAH,Atresia,N/A,97825,
+4/1/2024,X1,OAH,OAH,Atresia,N/A,977F3,
+4/1/2024,X1,OAH,OAH,Atresia,N/A,9784B,
+4/1/2024,X2,OAH,OAH,Atresia,N/A,97801,
+4/1/2024,X2,OAH,OAH,Atresia,N/A,977FA,
+4/1/2024,X2,OAH,OAH,Atresia,N/A,97816,
+4/1/2024,X2,OAH,OAH,Atresia,N/A,977FB,
+4/3/2024,G5,Ambient,Ambient,Atresia,N/A,97808,
+4/1/2025,G5,Ambient,Ambient,Atresia,N/A,977FC,
+4/1/2025,G5,Ambient,Ambient,Atresia,N/A,9781D,
+4/1/2025,G5,Ambient,Ambient,Atresia,N/A,97821,
+4/1/2025,R3,Ambient,Ambient,Atresia,N/A,97807,
+4/1/2025,R3,Ambient,Ambient,Atresia,N/A,97706,
+4/1/2025,R3,Ambient,Ambient,Atresia,N/A,977EF,
+4/1/2025,R3,Ambient,Ambient,Atresia,N/A,97844,
+4/1/2025,A5,Ambient,Ambient,Atresia,N/A,97820,
+4/1/2025,A5,Ambient,Ambient,Atresia,N/A,977ED,
+4/1/2025,A5,Ambient,Ambient,Atresia,N/A,97803,
+4/1/2025,A5,Ambient,Ambient,Atresia,N/A,97831,
+3/20/2025,R2,Ambient,Ambient,Post-Partuition,Partial;Premature,9780A,"5-7 days premature, most brood dead on bottom"
+3/24/2025,X1,Gestational,OAH,Post-Partuition,Partial;Premature,97828,"fert week of 2/12, partial parturition 3/6, larvae premature 5-7 days, medium density brood, released more dead larvae 3/7"
+3/20/2025,,Ambient,Ambient,Post-Partuition,Partial,97811,"oil globules on 3/5-6, Partial parturition, most larvae dead on bottom, low density brood 3/8, released more dead brood 3/9"
+3/20/2025,,Ambient,Ambient,Post-Partuition,Full,977EE,
+3/20/2025,,Ambient,Ambient,Post-Partuition,Partial;Premature,9783D,"3-4 day premature, full parturition 3/10, results from this brood may be confounded due to fish being benozcained on 3/8 and releasing some brood"
+3/29/2025,G4,Ambient,Ambient,Post-Partuition,Partial;Premature,9782D,"oil globules on 3/12 + 3/13, partial parturition of premature larvae 3/14, partial parturition of premature larvae 3/15"
+3/29/2024,A4,Ambient,Ambient,Post-Partuition,Dead,97838,Full term full parturition of only dead larvae 3/15
+3/29/2024,A4,Ambient,Ambient,Post-Partuition,Full; Premature,97812,"oil globules on 3/12, full parturition 3/18 but flow set too high and sieve wasn't sealed properly so most of brood was lost"
+4/24/2024,P3,Gestational,OAH,Post-Partuition,Full,97843,"Full parturition on 4/3. Most larvae alive and swimming. High density of live larvae. Saw some pericardial edema and jaw deformities in larval pictures. Some eggs mixed in with brood, not sure if the eggs are from 97843 or 97810. Day 0 images, heart videos, tubes, plate, Garfield samples, buckets, swimming videos, and fecundity done."
+4/24/2024,P3,Gestational,OAH,Post-Partuition,Full,97833,"Full parturition on 4/11. Great density of live swimming larvae. Some eggs mixed with larvae. Day 0 images, heart videos, tubes, plate, Garfield samples, buckets, swimming videos, and fecundity done."
+4/19/2024,G3,Pre-fertilization,Ambient,Post-Partuition,Small Spurts,9780C,
+5/17/2024,A1,Ambient,Ambient,Post-Partuition,Full; Premature,777DF,"Full parturition? with low density. Low density of swimming larvae. Larvae 7-9 days premature. Larval photos, heart videos, tubes, plate, otolith/ionocytes all taken and grow out buckets counted out."
+5/17/2024,G3,Ambient,Ambient,Post-Partuition,Full,777F3,
+5/21/2024,P5,Pre-fertilization,Ambient,Post-Partuition,Partial;Premature,777B3,
+5/21/2024,P5,Ambient,Ambient,Post-Partuition,Partial;Premature,777AA,
+5/21/2024,P5,Ambient,Ambient,Post-Partuition,Low density,777E8,buckets set up to grow out with only 1000 each
+5/21/2024,P5,Ambient,Ambient,Post-Partuition,Full,777BB,
+,G4,Ambient,Ambient,Post-Partuition,Spurt,977FE,
+5/21/2024,A4,Pre-fertilization,Ambient,Post-Partuition,Spurt,777CE,
+5/21/2024,A4,Pre-fertilization,Ambient,Post-Partuition,Full,777BA,
+5/21/2024,A4,Ambient,Ambient,Post-Partuition,Partial,777A6,
+,P4,Pre-fertilization,Ambient,Post-Partuition,Full; Premature,77795,
+,A2,Ambient,Ambient,Post-Partuition,Full; Premature,777A5,
+,G4,Pre-fertilization,Ambient,Post-Partuition,Full,977F2,
+,P2,Gestational,OAH,Post-Partuition,Spurt,777D3,"very small amount, spurts of larvae while dying"
+,,Ambient,Ambient,Post-Partuition,,77700,
+,G4,Pre-fertilization,Ambient,Post-Partuition,Full,977F5,"spurt on 5/17, full on 5/18"
+,P2,Gestational,OAH,Post-Partuition,Partial; Premature,777AF,Small spurt; not enough for buckets
+6/20/2024,G1,Ambient,Ambient,Post-Partuition,Full,777B0,

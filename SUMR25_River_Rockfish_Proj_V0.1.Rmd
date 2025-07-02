@@ -70,7 +70,7 @@ Hematocrit response to OAH stress compared to ambient treatment: The OAH treatme
 
 Hematocrit response to atresia compared to successful parturition: Atresia patients are hypothesized to have decreased hematocrit levels in contrast to sucessful parturition *S. carnatus* individuals, because pregnancy (larvae development) is suspected to increase the blood gas demands of maternal individuals, and thus require a boost in gas exchange efficiency.
 
-Hematocrit response towards OAH & successful parturition conditions vs ambient & atresia: Individuals exposed to OAH treatment and have a sucessful pregnancy are hypothesized to have higher hematocrit levels compared to atresia patients in the ambient treatment tank.
+Hematocrit response towards OAH & successful parturition conditions vs ambient & atresia: Individuals exposed to OAH treatment and have a successful pregnancy are hypothesized to have higher hematocrit levels compared to atresia patients in the ambient treatment tank.
 
 
 **Ions: Sodium, Chloride, Potassium, and Calcium**
