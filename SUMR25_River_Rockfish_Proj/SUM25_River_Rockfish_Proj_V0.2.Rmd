@@ -209,10 +209,11 @@ partuition_subcat <- partuition_subcat %>%
 
 ```{r}
 # Connect main ABL90 dataset with my (River's) sub categorized parturition metadata 
-ABL_merged <- partuition_subcat %>%
-left_join(ABL_b_samp, by = "Patient.ID_edited")
+# ABL_merged <- partuition_subcat %>%
+# left_join(ABL_b_samp, by = "Patient.ID_edited")
 
-
+ABL_merged <- ABL_b_samp %>%
+left_join(partuition_subcat, by = "Patient.ID_edited")
 ```
 
 Rename Columns Neatly:
