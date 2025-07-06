@@ -1,0 +1,96 @@
+---
+title: "SUMR25_River_Rockfish_Proj_V0.1"
+author: "River Mckegney"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Intro:
+
+River Mckegney's CSUMB UROC Innovation Scholars Summer 2025 Research Project. This Research project is about gopher rockfish (*S. Carnatus*) and their physiological response to environmental exposure of low pH and dissolved oxygen, factors mimicking the synergistic effects of ocean acidification and Hypoxic (OAH) climate change stressors. The effects of OAH on *S. carnatus* reproduction will also be investigated.
+
+Gopher Rockfish (*S. carnatus*) are viviparous species, where pregnant females develop often multiple larvae internally, and give live birth during spawing season. Mothers brood in the spring (Jan-May) that coincides with a seasonal upwelling period (Apr-Jun) along the Pacific Northwest, which is known to cause environmental changes to near shore water chemistry involving a decrease in pH (more acidic) and dissolved oxygen concentrations [DO]. These changes may act as synergistic stressors, effecting *S. carnatus* physiology and reproduction. If conditions are not favorable, or energetic demands are too costly, then pregnant *S. carnatus* may reabsorb their eggs and the pregnancy aborted, a process known as atresia.
+
+This study will investigate how *S. carnatus* blood work parameters compare between patients exposed to ambient and OAH treatments (\~ treatment groups), and will also look for differences between female gopher rockfish who experience atresia and those who undergo parturition or successful pregnancy (parturition status groups), as well as comparing the two treatments and parturition status groups.
+
+## Award Credits:
+
+This project was funded by the undergraduate CSU-COAST and Jim and Peggy Ryan Marine Science Research Award Program. This project is in association with California State University Monterey Bay UROC Innovation Scholars Summer 2025 Research Program.
+
+## Objective:
+
+The goals of this study are:
+
+## Hypotheses:
+
+The hypotheses of this study are listed below:
+
+Template: 1). response to OAH stress compared to ambient treatment: 2). response to atresia compared to successful parturition: 3). response towards OAH & atresia conditions vs ambient & successful parturition:
+
+**Internal pH**
+
+pH response to OAH stress compared to ambient treatment: Healthy pregnant gopher rockfish are hypothesized to maintain their internal blood pH. Acclimitization to a new stabilized pH setpoint is also possible. Changes to internal pH could indicate compromised metabolic function. Natural change to pH due to pregnancy, and other reproduction related confounding variables could also be considered.
+
+pH response to atresia compared to successful parturition:
+
+pH response towards OAH & atresia conditions vs ambient & successful parturition:
+
+**Glucose**
+
+Glucose response to OAH stress compared to ambient treatment: Internal glucose is expected to increase in response to OAH treatment, as a physiological stress response to the supposed increased environmental stress.
+
+Glucose response to atresia compared to successful parturition: Internal glucose is expected to be greater for *S. carnatus* that experience atresia compared to those who have successful parturition. This is reaction is suspected as a stress response towards metabolic demands of egg reabsorption, and suspected high energetic demands of metabolism (indicated by atresia) stimulating immune response.
+
+Glucose response towards OAH & atresia conditions vs ambient & successful parturition: It is unknown how *S. carnatus* blood glucose levels will compare between individuals who experience OAH treatment and atresia versus those who are exposed to ambient treatment and have successful parturition.
+
+**Hematocrit**
+
+Hematocrit response to OAH stress compared to ambient treatment: The OAH treatment is hypothesized to increase percent hematocrit, as a physiological response to counter low environmental dissolved oxygen concentrations [DO], and meet adequate blood oxygen metabolic demands.
+
+Hematocrit response to atresia compared to successful parturition: Atresia patients are hypothesized to have decreased hematocrit levels in contrast to sucessful parturition *S. carnatus* individuals, because pregnancy (larvae development) is suspected to increase the blood gas demands of maternal individuals, and thus require a boost in gas exchange efficiency.
+
+Hematocrit response towards OAH & successful parturition conditions vs ambient & atresia: Individuals exposed to OAH treatment and have a sucessful pregnancy are hypothesized to have higher hematocrit levels compared to atresia patients in the ambient treatment tank.
+
+**Ions: Sodium, Chloride, Potassium, and Calcium**
+
+**Sodium: Na+**
+
+Sodium response to OAH stress compared to ambient treatment: I suspect internal blood sodium concentrations to increase in response to OAH stress. This is suspected due to the previous studies on acid secretion and NA+ absorption proposed mechanisms (Evans et al. 2005).
+
+Sodium response to atresia compared to successful parturition: This depends on how pregnancy effects natural acid-base and osmoregulatory ion balance. Furthure investigation would be required to assess this potentially confounding idea.
+
+Sodium response towards OAH & atresia conditions vs ambient & successful parturition: The interactive role of parturition and decreased environmental pH & oxygen concentrations on gopher rockfish blood sodium concentration is unknown. Due to a lack of study on the effects of parturition on ion balance it is difficult to predict how this might influence pH change variables. This experiment however could produce useful data in assessing this concept.
+
+**Potassium: K+**
+
+Potassium response to OAH stress compared to ambient treatment: A decrease in potassium levels in response to OAH treatment is hypothesized, due to the stressor inducing mild metabolic acidosis, causing a bulk movement of potassium from intracellular to extracellular spaces, where it may be excreted via diffusion through gills or skin, or lost in fecal waste.
+
+Potassium response to atresia compared to successful parturition:
+
+Potassium response towards OAH & atresia conditions vs ambient & successful parturition:
+
+**Chloride: Cl-**
+
+Chloride response to OAH stress compared to ambient treatment:
+
+Chloride response to atresia compared to successful parturition:
+
+Chloride response towards OAH & atresia conditions vs ambient & successful parturition:
+
+**Calcium: Ca+2**
+
+Calcium response to OAH stress compared to ambient treatment:
+
+Calcium response to atresia compared to successful parturition:
+
+Calcium response towards OAH & atresia conditions vs ambient & successful parturition:
+
+## Experiment: Add in data alaysis here
+
+## Works Cited: Citation bibliography
+
+## Special Thanks:

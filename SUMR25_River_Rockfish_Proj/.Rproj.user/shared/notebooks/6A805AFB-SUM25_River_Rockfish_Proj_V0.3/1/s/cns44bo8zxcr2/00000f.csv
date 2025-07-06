@@ -1,0 +1,6 @@
+"0","# Connect main ABL90 dataset with my (River's) sub categorized parturition metadata "
+"0","# ABL_merged <- partuition_subcat %>%"
+"0","# left_join(ABL_b_samp, by = ""Patient.ID_edited"")"
+"0",""
+"0","ABL_merged <- ABL_b_samp %>%"
+"0","inner_join(partuition_subcat, by = ""Patient.ID_edited"")"
