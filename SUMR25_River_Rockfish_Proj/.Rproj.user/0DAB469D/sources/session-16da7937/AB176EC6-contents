@@ -1,11 +1,9 @@
 ---
-title: "SUM25_River_Rockfish_Proj_V0.3"
+title: "SUMR25_River_Rockfish_Proj_V0.1"
 author: "River Mckegney"
 date: "`r Sys.Date()`"
 output: html_document
 ---
-
-
 
 ## Setup, and Packages
 
@@ -131,8 +129,11 @@ Calcium response towards OAH & atresia conditions vs ambient & successful partur
 # Primary samples df
 ABL90 <- read.csv("Raw_Data/ABL90_Raw.csv")
 
+# Metadata 
+metadata_atresia_guide <- read.csv("Raw_Data/2024_Atresiafish_Guide2.csv")
+
 # River's Parturition metadata
-partuition_subcat <- read.csv("Raw_Data/River's_Rockfish_Metadata_Parturition_V6_2nd_Revision.csv")
+partuition_subcat <- read.csv("Raw_Data/River's_Rockfish_Metadata_Parturition_V2.csv")
 ```
 
 
@@ -158,22 +159,21 @@ ABL_set3 <- ABL_set2
 
 ```
 
+
 ```{r}
 # Step 4
-# Assign NA value to only `Errors.detected.during.measurement` column
 
-ABL_set4 <- ABL_set3 
-
-# For some reason assigning NAs removes almost all obs (0nly 2 left)
-
-#  ABL_set4 <- ABL_set3 %>%
+# Assign NA value to `Errors.detected.during.measurement` column
+# ABL_set4 <- ABL_set3 %>%
 # mutate(Errors.detected.during.measurement = na_if(Errors.detected.during.measurement, ""))
 
-
 # Alternative Method: Assign NAs to all character columns
-# ABL_set4 <- ABL_set3 %>%
-# mutate(across(where(is.character), ~ na_if(., "")))
+ABL_set4 <- ABL_set3 %>%
+mutate(across(where(is.character), ~ na_if(., "")))
 
+
+# ABL_set4 <- ABL_set3 %>%
+# mutate(`Errors.detected.during.measurement` = ifelse(is.na(`Errors.detected.during.measurement`), 0, `Errors.detected.during.measurement`))
 
 ```
 
@@ -200,7 +200,37 @@ ABL_b_samp <- ABL_set5 %>%
 
 ## Merge Datasets:
 
-Join ABL90 df with parturition_subcat df: Making ABL_merged
+Join ABL90 df with metadata_atresia_guide df: Making ABL_merged
+```{r}
+# Rename columns to match: Fish.ID to patient.ID_edited, so join can be done
+
+# Note: "post-partuition" spelling error, correct as "post-parturition" or pregnant
+# Rename column and variables: 
+metadata_atresia_guide <- metadata_atresia_guide %>%
+  mutate(Patient.ID_edited = Fish.ID) %>%
+  mutate(Pregnant.or.Atresia = ifelse(Pregnant.or.Atresia == "Post-Partuition", "Post-Parturition", Pregnant.or.Atresia)) 
+# %>% rename("Treatment" = "Ambient.or.OAH")
+# Retain original name of Ambient.or.OAH col for easy identification, as not all 'Treatment' cols across metadata sheets are correct
+
+# Join
+
+# 1st attempt:
+ABL_merged <- metadata_atresia_guide %>%
+inner_join(ABL_b_samp, by = "Patient.ID_edited") %>%
+  filter(!is.na(Date.of.processing)) # Removing individuals not in metadata set
+
+# Works???
+ABL_merged <- metadata_atresia_guide %>%
+left_join(ABL_b_samp, by = "Patient.ID_edited") %>%
+  filter(!is.na(Date.of.processing)) # Removing individuals not in metadata set
+
+# Why does this not???
+ABL_merged <- ABL_b_samp %>%
+left_join(metadata_atresia_guide, by = "Patient.ID_edited") 
+# %>% filter(!is.na(Date.of.processing))
+```  
+
+Join parturition_subcat df with ABL_merged df: Making ABL_sub_parturition_merged
 ```{r}
 # Rename columns to match: Change 'ID' in parturition_subcat to 'Patient.ID_edited' so it is ready to join with ABL90 df
 
@@ -208,119 +238,108 @@ Join ABL90 df with parturition_subcat df: Making ABL_merged
 
 # Rename 'ID' col to 'patient.ID_edited'
 partuition_subcat <- partuition_subcat %>%
-  rename(Patient.ID_edited = ID)
+  mutate(Patient.ID_edited = ID)
 
-```
 
-```{r}
 # Connect main ABL90 dataset with my (River's) sub categorized parturition metadata 
-# ABL_merged <- partuition_subcat %>%
-# left_join(ABL_b_samp, by = "Patient.ID_edited")
 
-ABL_merged <- ABL_b_samp %>%
-inner_join(partuition_subcat, by = "Patient.ID_edited")
+# Test procedure: See what IDs are missing between dfs...
+merge_test <- ABL_merged %>%
+  left_join(partuition_subcat, by = "Patient.ID_edited") %>%
+  filter(!is.na(Date.of.processing))
+
+merge_test2 <- partuition_subcat %>%
+  right_join(ABL_merged, by = "Patient.ID_edited") %>%
+  filter(!is.na(Date.of.processing))
+
+# The working merged df (ABL90 & sub parturition dfs)
+ABL_sub_parturion_merged <- partuition_subcat %>%
+  inner_join(ABL_merged, by = "Patient.ID_edited") %>%
+  filter(!is.na(Date.of.processing))
+
+# Done so to preserve row #s of original ABL_merged (so replicate rows can easily be identified, selected, and removed)
+All_merged <- partuition_subcat %>%
+  inner_join(ABL_merged, by = "Patient.ID_edited") %>%
+  filter(!is.na(Date.of.processing))
+
+# Alternative merged used to preserve all ABL_merged IDs
+ABL_sub_parturion_merged2 <- partuition_subcat %>%
+  right_join(ABL_merged, by = "Patient.ID_edited") %>%
+  filter(!is.na(Date.of.processing))
+
+ABL_sub_parturion_merged3 <- partuition_subcat %>%
+  left_join(ABL_merged, by = "Patient.ID_edited") %>%
+  filter(!is.na(Date.of.processing))
 ```
 
-Rename Columns Neatly:
+## Remove Duplicates from dataset
+
+Replicated Samples in All_merged df: ID 97812 (2x, Row #10 and #11), ID 9782D (4x, Row #6, #7, #8, and #9), and ID 9783D (2x, Row #4, and #5). 
+
 ```{r}
-ABL_merged <- ABL_merged %>%
-  rename(Ambient.Or.OAH = Concensus_General_Treatment,
-         Pregnant.or.Atresia = Concencus_Atresia_Or_Pregnant)
+
+# Cross Check all Columns: Cross validation to suss correct replicate row
+all_params <- All_merged %>%
+  select(Patient.ID_edited, Ambient.or.OAH, Last.known.treatment, Pregnant.or.Atresia, pH, Glu..mmol.L., Hct...., Na...mmol.L., K...mmol.L., Cl...mmol.L., Ca....mmol.L., pCO2..mmHg.)
+
+
+
+# Remove evaluated replicates (see notes below)
+select_repl <- all_params %>%
+  filter(row_number() != 34, # Patient_ID 9783D remove
+         row_number() != 41, # Patient_ID 9783D remove
+         row_number() != 39, # Patient_ID 97812 duplicate
+         row_number() != 30, # Patient_ID 9782D replicate
+         row_number() != 37, # Patient_ID 9782D duplicate
+         row_number() != 29) # Patient_ID 9782D duplicate
          
+          
+glimpse(select_repl) 
+# Note: Sodium and Chloride parameters are character values
+
 ```
 
 
-# Save filtered dataset into data-worked folder
+
+## Note: Reference *Error Codes and Notes* or Other Column Metadata Associated With Each Variable As A Check Method For Duplicate Rows
+After Checking ABL_merged dataframe, There are specific **notes** associated with Patient.ID_edited (synonymous with Fish.ID) for individuals 9782D, 9783D, and 97812 (where duplicate rows exist).
+
+Fish.ID 9782D: 4x duplicate rows.
+
+Important: 2024_Fish_Metadata csv does not contain info on ID_9782D.
+
+Results for this cross check analysis indicate to **keep 9782D row #8 or #9** (Row # specific for All_merged, and these rows contain a Notes column with data, while duplicates #6 and #7 do not contain any Notes data, as column is left blank). Row #6 & #7 replicates dropped. 
+
+Parameter values:
+
+| Row | ID    | pH    | Glu.mmol.L. | Hct.... | Na...mmol.L. | Cl...mmol.L. | K...mmol.L. | Ca.mmol.L. |
+| :--:| :---: | :---: | :---------: | :-----: | :----------: | :----------: | :---------: | :--------: |     
+| 6   | 9782D | 7.348 | 0.5         | 9.8     | 184          | 149          | 2.8         | 1.32       |
+| 7   | 9782D | 7.446 | 0.7         | 13.3    | 181          | 161          | 2.9         | 1.21       |
+| 8   | 9782D | 7.348 | 0.5         | 9.8     | 184          | 149          | 2.8         | 1.32       |
+| 9   | 9782D | 7.446 | 0.7         | 13.3    | 181          | 161          | 2.9         | 1.21       |
+
+Evaluation: **Parameter values** between replicate rows #8 and #9 are **quite similar**, and deciding which contains the more accurate measurements is not clear. Row #9 contains slightly increased parameter values (except for calcium & sodium, which displays a slight decrease) compared to row #8.
+
+9782D Update: Checking Error codes, row #6 & #8 contains Error.code.29: "(1227) - correction for bicarbonate contains errors for pH, pCO2".
+**choose row #9 to keep, remove rows #6, 7, and #8**. 
+
+
+Fish.ID 97812: 2x duplicate rows (which is correct?)
+For patient **97812 keep row #40** (contains notes data) and drop row #39; as notes conclude treatment is Ambient, and pregnant.or.Atresia is Post-Parturition. 
+Note: Check associated parameter values to make sure this looks right.
+ 
+
+Fish.ID 9783D: 2x duplicate rows
+For **patient 9783D, rows #41 & #34 consider dropping all rows** (removing sample). Notes exist for both rows, and notes say results may not be accurate.  
+
+
+## Last Filtering Step
 ```{r}
-# Save merged dataset in a worked folder
+# Filter only OKayed samples
 
-write.csv(x = ABL_merged, file = "Worked-Data/Rendered_ABL_merged")
 ```
 
 
-## Sample Size: n
-```{r}
-sample_size_table <- ABL_merged %>%
-  group_by(Ambient.Or.OAH, Pregnant.or.Atresia) %>%
-  summarise(n_size = n_distinct(Patient.ID_edited), .groups = "drop")
-print(sample_size_table)
-
-ABL_merged %>%
-  group_by(Ambient.Or.OAH, Pregnant.or.Atresia, Consensus_Fecundity) %>%
-  summarise(n_size = n_distinct(Patient.ID_edited), .groups = "drop")
-print(sample_size_table)
-
- pdf("data-images/sample_size_table.pdf") 
- grid.table(sample_size_table)
- dev.off()
-
- png("data-images/sample_size_table.png")
- grid.table(sample_size_table)
- dev.off()
-```
 
 
-## Visualizations - Graphs:
-Intro: Treatment & Pregnancy Outcome Exp. Overview
-
-```{r}
-# Test Vis
-n_barplot <- ABL_merged %>%
-  group_by(Consensus_Fecundity, Ambient.Or.OAH) %>% 
-  summarise(n_size = n_distinct(Patient.ID_edited), .groups = "drop") %>%
-  ggplot(aes(x = Consensus_Fecundity, y = n_size, fill = Ambient.Or.OAH)) +
-  geom_bar(stat = "identity" ) +
-  scale_y_continuous(expand = c(0, 0), limits = c(0, 15.5), breaks = c(0, 3, 6, 9, 12, 15))
-
-# +
-#   facet_grid(Ambient.Or.OAH ~ Brood_Condition) +
-#   labs(title = "Sample Size Of Parturition Status and Treatments On Maternal Gopher Rockfish",
-#         x = "Parturition Outcome",
-#         y = "Sample Size (n)") +
-#   guides(fill = guide_legend((title = "Treatment Type"))) +
-#   theme_classic(base_size = 10)
-
-print(n_barplot)
-```
-
-
-```{r}
-# View Sample Distributions
-sample_size_barplot <- ABL_merged %>%
-  group_by(Pregnant.or.Atresia, Ambient.Or.OAH) %>% 
-  summarise(n_size = n_distinct(Patient.ID_edited), .groups = "drop") %>%
-  ggplot(aes(x = Pregnant.or.Atresia, y = n_size, fill = Pregnant.or.Atresia)) +
-  geom_bar(stat = "identity" ) +
-  scale_y_continuous(expand = c(0, 0), limits = c(0, 15.5), breaks = c(0, 3, 6, 9, 12, 15)) +
-  facet_grid(~ Ambient.Or.OAH) +
-  labs(title = "Sample Size Of Experimental Groups For Female Gopher Rockfish",
-        x = "Parturition Status & Treatment Type",
-        y = "Sample Size (n)") +
-  guides(fill = guide_legend((title = "Reproductive State"))) +
-  theme_classic(base_size = 10)
-
-print(sample_size_barplot)
-
-ggsave(filename = "data-images/sample_size_barplot.png", plot = sample_size_barplot, device = "png")
-ggsave(filename = "data-images/sample_size_barplot.pdf", plot = sample_size_barplot, device = "pdf")
-
-
-# More detailed:
-sample_size_barplot2 <- ABL_merged %>%
-  group_by(Pregnant.or.Atresia, Ambient.Or.OAH, Consensus_Fecundity) %>% 
-  summarise(n_size = n_distinct(Patient.ID_edited), .groups = "drop") %>%
-  ggplot(aes(x = Pregnant.or.Atresia, y = n_size, fill = Pregnant.or.Atresia)) +
-  geom_bar(stat = "identity" ) +
-  scale_y_continuous(expand = c(0, 0), limits = c(0, 15.5), breaks = c(0, 3, 6, 9, 12, 15)) +
-  facet_grid(Ambient.Or.OAH ~ Consensus_Fecundity) +
-  labs(title = "Sample Size Of Parturition Status and Treatments On Maternal Gopher Rockfish",
-        x = "Parturition Outcome",
-        y = "Sample Size (n)") +
-  guides(fill = guide_legend((title = "Treatment Type"))) +
-  theme_classic(base_size = 10)
-
-print(sample_size_barplot2)
-
-ggsave(filename = "data-images/sample_size_barplot2.png", plot = sample_size_barplot2, device = "png")
-ggsave(filename = "data-images/sample_size_barplot2.pdf", plot = sample_size_barplot2, device = "pdf")
-```

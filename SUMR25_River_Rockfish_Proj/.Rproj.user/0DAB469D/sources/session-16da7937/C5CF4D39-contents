@@ -1,5 +1,5 @@
 ---
-title: "SUM25_River_Rockfish_Proj_V0.3"
+title: "SUM25_River_Rockfish_Proj_V0.2"
 author: "River Mckegney"
 date: "`r Sys.Date()`"
 output: html_document
@@ -132,7 +132,7 @@ Calcium response towards OAH & atresia conditions vs ambient & successful partur
 ABL90 <- read.csv("Raw_Data/ABL90_Raw.csv")
 
 # River's Parturition metadata
-partuition_subcat <- read.csv("Raw_Data/River's_Rockfish_Metadata_Parturition_V6_2nd_Revision.csv")
+partuition_subcat <- read.csv("Raw_Data/River's_Rockfish_Metadata_Parturition_V5.csv")
 ```
 
 
@@ -160,15 +160,10 @@ ABL_set3 <- ABL_set2
 
 ```{r}
 # Step 4
+
 # Assign NA value to only `Errors.detected.during.measurement` column
-
-ABL_set4 <- ABL_set3 
-
-# For some reason assigning NAs removes almost all obs (0nly 2 left)
-
-#  ABL_set4 <- ABL_set3 %>%
-# mutate(Errors.detected.during.measurement = na_if(Errors.detected.during.measurement, ""))
-
+ABL_set4 <- ABL_set3 %>%
+mutate(Errors.detected.during.measurement = na_if(Errors.detected.during.measurement, ""))
 
 # Alternative Method: Assign NAs to all character columns
 # ABL_set4 <- ABL_set3 %>%
@@ -208,7 +203,7 @@ Join ABL90 df with parturition_subcat df: Making ABL_merged
 
 # Rename 'ID' col to 'patient.ID_edited'
 partuition_subcat <- partuition_subcat %>%
-  rename(Patient.ID_edited = ID)
+  mutate(Patient.ID_edited = ID)
 
 ```
 
@@ -218,14 +213,14 @@ partuition_subcat <- partuition_subcat %>%
 # left_join(ABL_b_samp, by = "Patient.ID_edited")
 
 ABL_merged <- ABL_b_samp %>%
-inner_join(partuition_subcat, by = "Patient.ID_edited")
+left_join(partuition_subcat, by = "Patient.ID_edited")
 ```
 
 Rename Columns Neatly:
 ```{r}
 ABL_merged <- ABL_merged %>%
-  rename(Ambient.Or.OAH = Concensus_General_Treatment,
-         Pregnant.or.Atresia = Concencus_Atresia_Or_Pregnant)
+  rename(Ambient.Or.OAH = Ambient_Or_OAH_on_2024_Atresiafish_Guide2.csv,
+         Pregnant.or.Atresia = Pregnant_Or_Atresia_on_2024_Atresiafish_Guide2.csv)
          
 ```
 
@@ -246,7 +241,7 @@ sample_size_table <- ABL_merged %>%
 print(sample_size_table)
 
 ABL_merged %>%
-  group_by(Ambient.Or.OAH, Pregnant.or.Atresia, Consensus_Fecundity) %>%
+  group_by(Ambient.Or.OAH, Pregnant.or.Atresia, Brood_Condition) %>%
   summarise(n_size = n_distinct(Patient.ID_edited), .groups = "drop")
 print(sample_size_table)
 
@@ -266,9 +261,9 @@ Intro: Treatment & Pregnancy Outcome Exp. Overview
 ```{r}
 # Test Vis
 n_barplot <- ABL_merged %>%
-  group_by(Consensus_Fecundity, Ambient.Or.OAH) %>% 
+  group_by(Brood_Condition, Ambient.Or.OAH) %>% 
   summarise(n_size = n_distinct(Patient.ID_edited), .groups = "drop") %>%
-  ggplot(aes(x = Consensus_Fecundity, y = n_size, fill = Ambient.Or.OAH)) +
+  ggplot(aes(x = Brood_Condition, y = n_size, fill = Ambient.Or.OAH)) +
   geom_bar(stat = "identity" ) +
   scale_y_continuous(expand = c(0, 0), limits = c(0, 15.5), breaks = c(0, 3, 6, 9, 12, 15))
 
@@ -307,12 +302,12 @@ ggsave(filename = "data-images/sample_size_barplot.pdf", plot = sample_size_barp
 
 # More detailed:
 sample_size_barplot2 <- ABL_merged %>%
-  group_by(Pregnant.or.Atresia, Ambient.Or.OAH, Consensus_Fecundity) %>% 
+  group_by(Pregnant.or.Atresia, Ambient.Or.OAH, Brood_Condition) %>% 
   summarise(n_size = n_distinct(Patient.ID_edited), .groups = "drop") %>%
   ggplot(aes(x = Pregnant.or.Atresia, y = n_size, fill = Pregnant.or.Atresia)) +
   geom_bar(stat = "identity" ) +
   scale_y_continuous(expand = c(0, 0), limits = c(0, 15.5), breaks = c(0, 3, 6, 9, 12, 15)) +
-  facet_grid(Ambient.Or.OAH ~ Consensus_Fecundity) +
+  facet_grid(Ambient.Or.OAH ~ Brood_Condition) +
   labs(title = "Sample Size Of Parturition Status and Treatments On Maternal Gopher Rockfish",
         x = "Parturition Outcome",
         y = "Sample Size (n)") +
@@ -324,3 +319,4 @@ print(sample_size_barplot2)
 ggsave(filename = "data-images/sample_size_barplot2.png", plot = sample_size_barplot2, device = "png")
 ggsave(filename = "data-images/sample_size_barplot2.pdf", plot = sample_size_barplot2, device = "pdf")
 ```
+
