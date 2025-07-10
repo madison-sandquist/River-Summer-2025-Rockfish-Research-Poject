@@ -1,0 +1,5 @@
+"0","# Cross Check all Columns: Cross validation to suss correct replicate row"
+"0","check_params <- ABL_merged %>%"
+"0","  select(Patient.ID_edited, Time, Sample.., Measuring.Mode, Ambient.Or.OAH, Pregnant.Or.Atresia, pH, Glu..mmol.L., Hct...., Na...mmol.L., Cl...mmol.L., K...mmol.L., Ca....mmol.L., pCO2..mmHg.) %>%"
+"0","  filter(Patient.ID_edited == ""9782D"")"
+"0","print(check_params)"
