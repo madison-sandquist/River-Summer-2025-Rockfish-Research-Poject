@@ -345,22 +345,69 @@ Intro: Treatment & Pregnancy Outcome Exp. Overview
 
 ```{r}
 # Test Vis
-n_barplot <- ABL_merged %>%
+n_barplot <- Secondary_Samples %>%
+  group_by(Consensus_Fecundity, Ambient.Or.OAH) %>% 
+  summarise(n_size = n_distinct(Patient.ID_edited), .groups = "drop") %>%
+  ggplot(aes(x = Consensus_Fecundity, y = n_size, fill = Ambient.Or.OAH)) +
+  scale_fill_manual(values = c("Ambient" = "#189bff", "OAH" = "#507b7f")) +
+  geom_bar(stat = "identity" ) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 15.5), breaks = c(0, 3, 6, 9, 12, 15)) +
+  labs(title = "Sample Size Of Parturition Status and Treatments On Maternal Gopher Rockfish",
+        x = "Parturition Outcome",
+        y = "Sample Size (n)") +
+  guides(fill = guide_legend((title = "Treatment Type"))) 
+
+print(n_barplot)
+ 
+
+
+Secondary_Samples %>%
   group_by(Consensus_Fecundity, Ambient.Or.OAH) %>% 
   summarise(n_size = n_distinct(Patient.ID_edited), .groups = "drop") %>%
   ggplot(aes(x = Consensus_Fecundity, y = n_size, fill = Ambient.Or.OAH)) +
   geom_bar(stat = "identity" ) +
-  scale_y_continuous(expand = c(0, 0), limits = c(0, 15.5), breaks = c(0, 3, 6, 9, 12, 15))
+  facet_grid(~ Ambient.Or.OAH) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 15.5), breaks = c(0, 3, 6, 9, 12, 15)) +
+  labs(title = "Sample Size Of Parturition Status and Treatments On Maternal Gopher Rockfish",
+        x = "Parturition Outcome",
+        y = "Sample Size (n)") +
+  guides(fill = guide_legend((title = "Treatment Type"))) +
+  theme(axis.text.x = element_text(size = 5))
 
-# +
-#   facet_grid(Ambient.Or.OAH ~ Brood_Condition) +
-#   labs(title = "Sample Size Of Parturition Status and Treatments On Maternal Gopher Rockfish",
-#         x = "Parturition Outcome",
-#         y = "Sample Size (n)") +
-#   guides(fill = guide_legend((title = "Treatment Type"))) +
-#   theme_classic(base_size = 10)
 
-print(n_barplot)
+
+
+
+Secondary_Samples %>%
+  group_by(Consensus_Fecundity, Ambient.Or.OAH) %>% 
+  summarise(n_size = n_distinct(Patient.ID_edited), .groups = "drop") %>%
+  ggplot(aes(x = Consensus_Fecundity, y = n_size, fill = Ambient.Or.OAH)) +
+  geom_bar(stat = "identity" ) +
+  facet_grid(~ Ambient.Or.OAH) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 15.5), breaks = c(0, 3, 6, 9, 12, 15)) +
+  
+  labs(title = "Sample Size Of Parturition Status and Treatments On Maternal Gopher Rockfish",
+        x = "Parturition Outcome",
+        y = "Sample Size (n)") +
+  guides(fill = guide_legend((title = "Treatment Type"))) +
+  theme(axis.text.x = element_text(angle = 90))
+
+
+
+Secondary_Samples %>%
+  group_by(Consensus_Fecundity, Ambient.Or.OAH) %>% 
+  summarise(n_size = n_distinct(Patient.ID_edited), .groups = "drop") %>%
+  ggplot(aes(x = Consensus_Fecundity, y = n_size, fill = Consensus_Fecundity)) +
+  geom_bar(stat = "identity" ) +
+  facet_grid(~ Ambient.Or.OAH) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 15.5), breaks = c(0, 3, 6, 9, 12, 15)) +
+  
+  labs(title = "Sample Size Of Parturition Status and Treatments On Maternal Gopher Rockfish",
+        x = "Parturition Outcome",
+        y = "Sample Size (n)") +
+  guides(fill = guide_legend((title = "Parturition Success"))) +
+  theme(axis.text.x = element_text(angle = 90))
+
 ```
 
 

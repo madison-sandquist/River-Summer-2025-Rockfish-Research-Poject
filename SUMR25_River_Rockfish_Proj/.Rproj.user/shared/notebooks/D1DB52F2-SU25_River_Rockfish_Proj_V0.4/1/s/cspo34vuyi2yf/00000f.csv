@@ -1,0 +1,19 @@
+"0","# pH Analysis"
+"0","# ANOVA Tests"
+"0",""
+"0","# Two-Way ANOVA"
+"0","# Testing general factor effects: Treatment & Parturition Outcome"
+"0","pH_aov_int <- aov(pH ~ Pregnant.Or.Atresia * Ambient.Or.OAH, data = Secondary_Samples)"
+"0","summary(pH_aov) # Interaction not significant (p-value = 0.10292), use additive model"
+"2","G1;H1;Errorh in h(simpleError(msg, call)) : 
+  error in evaluating the argument 'object' in selecting a method for function 'summary': object 'pH_aov' not found
+g"
+"0","pH_aov_additive <- aov(pH ~ Pregnant.Or.Atresia + Ambient.Or.OAH, data = Secondary_Samples)"
+"0","summary(pH_aov_additive)"
+"1","                    Df  Sum Sq Mean Sq F value Pr(>F)   
+Pregnant.Or.Atresia  1 0.06142 0.06142   8.775 0.0063 **
+Ambient.Or.OAH       1 0.04105 0.04105   5.865 0.0224 * 
+Residuals           27 0.18898 0.00700                  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+"

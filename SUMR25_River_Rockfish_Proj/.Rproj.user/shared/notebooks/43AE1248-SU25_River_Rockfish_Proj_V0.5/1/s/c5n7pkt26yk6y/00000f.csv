@@ -1,0 +1,8 @@
+"0","# Rename columns to match: Change 'ID' in parturition_subcat to 'Patient.ID_edited' so it is ready to join with ABL90 df"
+"0",""
+"0","# Please note the 'Treatment' col in parturition_subcat does not match with the finalized 'Ambient.Or.OAH' col in metadata_atresia_guide or ABL90_merged df"
+"0",""
+"0","# Rename 'ID' col to 'patient.ID_edited'"
+"0","partuition_subcat <- partuition_subcat %>%"
+"0","  rename(Patient.ID_edited = ID)"
+"0",""

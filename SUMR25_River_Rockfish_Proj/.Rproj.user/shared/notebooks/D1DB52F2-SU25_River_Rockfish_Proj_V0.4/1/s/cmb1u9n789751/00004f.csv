@@ -1,0 +1,23 @@
+"0","Secondary_Samples %>%
+  ggplot(aes(x = pH)) +
+  geom_histogram(aes(y = ..density..)) +
+  stat_function(fun = dnorm(x = 7.1:7.6, mean = mean(Secondary_Samples$pH), sd = sd(Secondary_Samples$pH)))
+  facet_grid(~ Ambient.Or.OAH)
+"
+"1","<ggproto object: Class FacetGrid, Facet, gg>
+    compute_layout: function
+    draw_back: function
+    draw_front: function
+    draw_labels: function
+    draw_panels: function
+    finish_data: function
+    init_scales: function
+    map_data: function
+    params: list
+    setup_data: function
+    setup_params: function
+    shrink: TRUE
+    train_scales: function
+    vars: function
+    super:  <ggproto object: Class FacetGrid, Facet, gg>
+"

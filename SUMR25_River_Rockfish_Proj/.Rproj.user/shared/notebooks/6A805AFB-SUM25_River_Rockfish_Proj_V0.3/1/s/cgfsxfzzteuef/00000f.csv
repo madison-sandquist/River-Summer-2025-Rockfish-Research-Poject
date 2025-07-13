@@ -7,7 +7,8 @@
 "0",""
 "0","# Step 2: Separate Patient.ID into columns of sample types: blood plasma and instant freeze plasma "
 "0","ABL_set2 <- separate(ABL_set1, 'Patient.ID_edited', into = c(""Patient.ID_edited"", ""Sample_Type""), sep = "","")  "
-"2","G2;H2;Warningh: [38;5;255mExpected 2 pieces. Missing pieces filled with `NA` in 4 rows [489, 619, 1034, 1177].[39mg
+"2","G2;H2;Warningh: [38;5;255mExpected 2 pieces. Missing pieces filled with `NA` in 4 rows [489, 619, 1034,
+1177].[39mg
 "
 "0","# Step 3:"
 "0","# Convert Patient.ID_edited column data to character type"

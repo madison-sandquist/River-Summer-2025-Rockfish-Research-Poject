@@ -1,0 +1,109 @@
+"0","# Glucose boxplot"
+"0","glucose_boxplot <- ggplot(data = select_repl) +"
+"0","  geom_boxplot(aes(x = Pregnant.or.Atresia, y = Glu..mmol.L., fill = Treatment)) + "
+"0","  labs(title = ""Glucose"", x = ""Reproduction Status"", y = ""Glucose (mmol/L)"") +"
+"0","  guides(color = guide_legend((title = ""Treatment Type""))) + "
+"0","  theme_classic() +"
+"0","  theme(panel.background = element_rect(fill = ""white""),"
+"0","        plot.background = element_rect(fill = ""white""),"
+"0","        legend.background = element_rect(fill = ""white"", color = ""black""),"
+"0","        title = element_text(size = 12),"
+"0","        plot.title = element_text(size = 30, hjust = 0.5),"
+"0","        axis.text.x = element_text(size = 20),"
+"0","        axis.text.y = element_text(size = 20),"
+"0","        axis.title.x = element_text(size = 20),"
+"0","        axis.title.y = element_text(size = 20))"
+"2","G1;H1;Errorh: object 'select_repl' not found
+Error during wrapup: not that many frames on the stack
+Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+g"
+"0","print(glucose_boxplot)"
+"2","G1;H1;Errorh in h(simpleError(msg, call)) : 
+  error in evaluating the argument 'x' in selecting a method for function 'print': object 'glucose_boxplot' not found
+g"
+"0","ggsave(filename = ""data-images/glucose_boxplot.pdf"", plot = glucose_boxplot, device = ""pdf"")"
+"1","[38;5;255mSaving 7 x 7 in image[39m
+"
+"2","G1;H1;Errorh: object 'glucose_boxplot' not found
+Error during wrapup: not that many frames on the stack
+Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+g"
+"0","ggsave(filename = ""data-images/glucose_boxplot.png"", plot = glucose_boxplot, device = ""png"")"
+"1","[38;5;255mSaving 7 x 7 in image[39m
+"
+"2","G1;H1;Errorh: object 'glucose_boxplot' not found
+Error during wrapup: not that many frames on the stack
+Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+g"
+"0","# Glucose Two-way ANOVA test"
+"0","glucose_aov <- aov(Glu..mmol.L. ~ Pregnant.or.Atresia * Treatment, data = select_repl)"
+"2","G1;H1;Errorh: object 'select_repl' not found
+Error during wrapup: not that many frames on the stack
+Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+g"
+"0","summary(glucose_aov) # interaction not significant, change model"
+"2","G1;H1;Errorh in h(simpleError(msg, call)) : 
+  error in evaluating the argument 'object' in selecting a method for function 'summary': object 'glucose_aov' not found
+g"
+"0","# Additive Model"
+"0","glucose_aov_no_int <- aov(Glu..mmol.L. ~ Pregnant.or.Atresia + Treatment, data = select_repl)"
+"2","G1;H1;Errorh: object 'select_repl' not found
+Error during wrapup: not that many frames on the stack
+Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+g"
+"0","summary(glucose_aov_no_int)"
+"2","G1;H1;Errorh in h(simpleError(msg, call)) : 
+  error in evaluating the argument 'object' in selecting a method for function 'summary': object 'glucose_aov_no_int' not found
+g"
+"0","# Parametric Assumptions"
+"0",""
+"0","# Check normality plots"
+"0",""
+"0","glucose_res_qqplot <- ggqqplot(residuals(glucose_aov_no_int)) + "
+"0","labs(title = ""Glucose Residual QQplot"","
+"0","     subtitle = ""aov(Glu..mmol.L. ~ Parturition Status + Treatment)"","
+"0","                               x = ""Glucose (mmol/L) Theoretical Quantiles (Predicted values)"","
+"0","                               y = ""Glucose (mmol/L) Sample Quantiles"") +"
+"0","  theme(plot.title = element_text(hjust = 0.5),"
+"0","        plot.subtitle = element_text(hjust = 0.5))"
+"2","G1;H1;Errorh: object 'glucose_aov_no_int' not found
+Error during wrapup: not that many frames on the stack
+Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+g"
+"0","print(glucose_res_qqplot)"
+"2","G1;H1;Errorh in h(simpleError(msg, call)) : 
+  error in evaluating the argument 'x' in selecting a method for function 'print': object 'glucose_res_qqplot' not found
+g"
+"0","ggsave(filename = ""data-images/glucose_res_qqplot.pdf"", plot = glucose_res_qqplot, device = ""pdf"")"
+"1","[38;5;255mSaving 7 x 7 in image[39m
+"
+"2","G1;H1;Errorh: object 'glucose_res_qqplot' not found
+Error during wrapup: not that many frames on the stack
+Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+g"
+"0","ggsave(filename = ""data-images/glucose_res_qqplot.png"", plot = glucose_res_qqplot, device = ""png"")"
+"1","[38;5;255mSaving 7 x 7 in image[39m
+"
+"2","G1;H1;Errorh: object 'glucose_res_qqplot' not found
+Error during wrapup: not that many frames on the stack
+Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+g"
+"0","# Check normality shapiro.test"
+"0","shapiro.test(residuals(glucose_aov_no_int))"
+"2","G1;H1;Errorh: object 'glucose_aov_no_int' not found
+Error during wrapup: not that many frames on the stack
+Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+g"
+"0","# Check homscedasticity"
+"0","leveneTest(Glu..mmol.L. ~ Pregnant.or.Atresia * Treatment,"
+"0","              data = select_repl)"
+"2","G1;H1;Errorh: object 'select_repl' not found
+Error during wrapup: not that many frames on the stack
+Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+g"
+"0","# Tukey Test: which group has higher or lower values?"
+"0","TukeyHSD(glucose_aov_no_int)"
+"2","G1;H1;Errorh: object 'glucose_aov_no_int' not found
+Error during wrapup: not that many frames on the stack
+Error: no more error handlers available (recursive errors?); invoking 'abort' restart
+g"
