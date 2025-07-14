@@ -1,0 +1,8 @@
+"0","# Glucose"
+"0","# Parametric Assumptions"
+"0","# Assessing Homoscedasticity: Equal Variance of Residuals"
+"0",""
+"0","# Plotting residuals vs fitted"
+"0",""
+"0","# Two-way ANOVA Interactive/Additive model: General factor comparison"
+"0","lm(Glu..mmol.L. ~ Pregnant.Or.Atresia * Ambient.Or.OAH, data = General_Samples) %>% plot()"

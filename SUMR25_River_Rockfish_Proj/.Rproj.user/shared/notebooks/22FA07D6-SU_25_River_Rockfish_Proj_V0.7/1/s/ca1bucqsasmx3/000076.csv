@@ -1,0 +1,8 @@
+"0",""
+"0","Ambient_Only_Samples %>%"
+"0","  ggplot(aes(x = Glu..mmol.L.)) +"
+"0","  geom_histogram(binwidth = 0.01) +"
+"0","  stat_function(fun = dnorm, args = c(mean = mean(Ambient_Only_Samples$Glu..mmol.L.), sd = sd(Ambient_Only_Samples$Glu..mmol.L.)), col = ""green"") +"
+"0","  geom_density(col = ""black"") +"
+"0","  facet_grid(~ Ambient.Or.OAH) +"
+"0","  labs (title = ""Glucose Ambient Sample Distribution"")"

@@ -1,0 +1,5 @@
+"0","# Rename Treatment & Parturition Outcome"
+"0","ABL_merged <- ABL_merged %>%"
+"0","  rename(Ambient.Or.OAH = Consensus_General_Treatment,"
+"0","         Pregnant.Or.Atresia = Consensus_Atresia_Or_Pregnant)"
+"0","         "

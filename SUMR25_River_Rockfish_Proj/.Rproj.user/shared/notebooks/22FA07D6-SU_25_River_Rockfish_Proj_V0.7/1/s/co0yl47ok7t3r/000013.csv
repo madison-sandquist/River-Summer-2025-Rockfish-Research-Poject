@@ -1,0 +1,56 @@
+"0","# Sodium Analysis"
+"0","# ANOVA Tests"
+"0",""
+"0","# Testing general factor differences: Treatment & Parturition Outcome"
+"0","# Two-Way ANOVA"
+"0",""
+"0","sodium_aov_int <- aov(Na...mmol.L. ~ Pregnant.Or.Atresia * Ambient.Or.OAH, data = General_Samples)"
+"0","summary(sodium_aov_int) "
+"1","                                   Df Sum Sq Mean Sq F value Pr(>F)
+Pregnant.Or.Atresia                 1   63.6   63.61   0.996  0.327
+Ambient.Or.OAH                      1   81.5   81.54   1.277  0.269
+Pregnant.Or.Atresia:Ambient.Or.OAH  1  115.3  115.29   1.805  0.191
+Residuals                          26 1660.5   63.87               
+"
+"0","# If Interaction not significant (p-value > 0.05), use additive model"
+"0",""
+"0","sodium_aov_additive <- aov(Na...mmol.L. ~ Pregnant.Or.Atresia + Ambient.Or.OAH, data = General_Samples)"
+"0","summary(sodium_aov_additive)"
+"1","                    Df Sum Sq Mean Sq F value Pr(>F)
+Pregnant.Or.Atresia  1   63.6   63.61   0.967  0.334
+Ambient.Or.OAH       1   81.5   81.54   1.240  0.275
+Residuals           27 1775.8   65.77               
+"
+"0","# Post-Hoc Test: "
+"0","# - Tukey's HSD test (parametric)"
+"0","# - Scheirer-Ray-Hare test (non-parametric)"
+"0","# - Aligned Ranked Transformation (ART): Nonparametric, robust against violations to normality and homoscedasticity"
+"0","# - Ordinal Logistic Regression"
+"0",""
+"0","# Tukey's Honestly Significant Difference Test (Parametric):"
+"0","sodium_tukey_test <- TukeyHSD(sodium_aov_int)"
+"0","print(sodium_tukey_test)"
+"1","  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = Na...mmol.L. ~ Pregnant.Or.Atresia * Ambient.Or.OAH, data = General_Samples)
+
+$Pregnant.Or.Atresia
+                              diff       lwr      upr     p adj
+Post Parturition-Atresia -2.972222 -9.094234 3.149789 0.3274991
+
+$Ambient.Or.OAH
+                 diff       lwr      upr     p adj
+OAH-Ambient -3.726326 -10.50843 3.055782 0.2690504
+
+$`Pregnant.Or.Atresia:Ambient.Or.OAH`
+                                                   diff       lwr       upr     p adj
+Post Parturition:Ambient-Atresia:Ambient      -5.452991 -14.95973  4.053747 0.4105457
+Atresia:OAH-Atresia:Ambient                   -7.230769 -18.76776  4.306226 0.3343650
+Post Parturition:OAH-Atresia:Ambient          -3.564103 -17.60649 10.478280 0.8975723
+Atresia:OAH-Post Parturition:Ambient          -1.777778 -14.00621 10.450657 0.9780588
+Post Parturition:OAH-Post Parturition:Ambient  1.888889 -12.72689 16.504664 0.9843740
+Post Parturition:OAH-Atresia:OAH               3.666667 -12.34411 19.677447 0.9220237
+
+"
+"0","sodium_aov_int %>% tukey_hsd()"

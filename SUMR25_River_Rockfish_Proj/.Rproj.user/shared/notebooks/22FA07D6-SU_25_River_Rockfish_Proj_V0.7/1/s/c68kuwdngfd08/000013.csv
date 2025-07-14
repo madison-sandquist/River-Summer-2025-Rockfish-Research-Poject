@@ -1,0 +1,67 @@
+"0","# hct Analysis"
+"0","# ANOVA Tests"
+"0",""
+"0","# Testing general factor differences: Treatment & Parturition Outcome"
+"0","# Two-Way ANOVA"
+"0",""
+"0","hct_aov_int <- aov(Hct.... ~ Pregnant.Or.Atresia * Ambient.Or.OAH, data = General_Samples)"
+"0","summary(hct_aov_int) "
+"1","                                   Df Sum Sq Mean Sq F value Pr(>F)  
+Pregnant.Or.Atresia                 1  71.82   71.82   7.078 0.0132 *
+Ambient.Or.OAH                      1  29.17   29.17   2.874 0.1019  
+Pregnant.Or.Atresia:Ambient.Or.OAH  1   1.75    1.75   0.172 0.6817  
+Residuals                          26 263.84   10.15                 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+"
+"0","# If Interaction not significant (p-value > 0.05), use additive model"
+"0",""
+"0","hct_aov_additive <- aov(Hct.... ~ Pregnant.Or.Atresia + Ambient.Or.OAH, data = General_Samples)"
+"0","summary(hct_aov_additive)"
+"1","                    Df Sum Sq Mean Sq F value Pr(>F)  
+Pregnant.Or.Atresia  1  71.82   71.82   7.302 0.0118 *
+Ambient.Or.OAH       1  29.17   29.17   2.965 0.0965 .
+Residuals           27 265.58    9.84                 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+"
+"0","# Post-Hoc Test: "
+"0","# - Tukey's HSD test (parametric)"
+"0","# - Scheirer-Ray-Hare test (non-parametric)"
+"0","# - Aligned Ranked Transformation (ART): Nonparametric, robust against violations to normality and homoscedasticity"
+"0","# - Ordinal Logistic Regression"
+"0",""
+"0","# Tukey's Honestly Significant Difference Test (Parametric):"
+"0","hct_tukey_test <- TukeyHSD(hct_aov_int)"
+"0","print(hct_tukey_test)"
+"1","  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = Hct.... ~ Pregnant.Or.Atresia * Ambient.Or.OAH, data = General_Samples)
+
+$Pregnant.Or.Atresia
+                              diff       lwr        upr     p adj
+Post Parturition-Atresia -3.158333 -5.598601 -0.7180658 0.0131934
+
+$Ambient.Or.OAH
+                diff        lwr      upr     p adj
+OAH-Ambient 2.228693 -0.4746923 4.932079 0.1020991
+
+$`Pregnant.Or.Atresia:Ambient.Or.OAH`
+                                                    diff        lwr        upr
+Post Parturition:Ambient-Atresia:Ambient      -3.3888889 -7.1783272  0.4005494
+Atresia:OAH-Atresia:Ambient                    1.8000000 -2.7987098  6.3987098
+Post Parturition:OAH-Atresia:Ambient          -0.4666667 -6.0640380  5.1307047
+Atresia:OAH-Post Parturition:Ambient           5.1888889  0.3145671 10.0632107
+Post Parturition:OAH-Post Parturition:Ambient  2.9222222 -2.9037066  8.7481511
+Post Parturition:OAH-Atresia:OAH              -2.2666667 -8.6486520  4.1153186
+                                                  p adj
+Post Parturition:Ambient-Atresia:Ambient      0.0917511
+Atresia:OAH-Atresia:Ambient                   0.7081869
+Post Parturition:OAH-Atresia:Ambient          0.9956754
+Atresia:OAH-Post Parturition:Ambient          0.0338146
+Post Parturition:OAH-Post Parturition:Ambient 0.5249872
+Post Parturition:OAH-Atresia:OAH              0.7650498
+
+"
+"0","hct_aov_int %>% tukey_hsd()"

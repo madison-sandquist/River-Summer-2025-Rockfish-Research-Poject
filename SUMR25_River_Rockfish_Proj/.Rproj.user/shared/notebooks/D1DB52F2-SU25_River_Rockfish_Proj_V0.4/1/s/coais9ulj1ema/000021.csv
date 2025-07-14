@@ -1,0 +1,5 @@
+"0",""
+"0","Ambient_Only_Samples_table <- Ambient_Only_Samples %>%"
+"0","  group_by(Ambient.Or.OAH, Pregnant.Or.Atresia) %>%"
+"0","  summarise(n_size = n_distinct(Patient.ID_edited), .groups = ""drop"")"
+"0","print(Ambient_Only_Samples_table)"

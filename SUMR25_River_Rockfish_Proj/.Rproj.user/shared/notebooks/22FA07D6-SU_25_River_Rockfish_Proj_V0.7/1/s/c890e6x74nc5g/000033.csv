@@ -1,0 +1,33 @@
+"0","# pH"
+"0","# Parametric Assumptions"
+"0",""
+"0","# Assessing Normality"
+"0",""
+"0","# Descriptive stat test: Stat.desc"
+"0","# Z-score reflected in 'skew.2SE' and 'kurt.2SE'"
+"0","# If these values are below 0.96 this indicates normality"
+"0",""
+"0","# Note these values are sensitive to sample size, and are most effective for relatively small sample sizes approximately n = 30-50 range "
+"0",""
+"0","# Note Alternative methods, all appear to display same results, not sure exactly how to incorporate an lm or aov model into the stat.desc function..."
+"0","# General samples"
+"0",""
+"0","# Other methods:"
+"0",""
+"0","#stat.desc(General_Samples$pH, norm = TRUE) "
+"0",""
+"0","# stat.desc(General_Samples[, c(""pH"", ""Pregnant.Or.Atresia"", ""Ambient.Or.OAH"")], norm = TRUE, desc = TRUE, p = 0.95)"
+"0",""
+"0",""
+"0","# General samples"
+"0","General_Samples %>%"
+"0","  summarise(pH, Ambient.Or.OAH, Pregnant.Or.Atresia) %>%"
+"0","  stat.desc(norm = TRUE)"
+"2","G2;H2;Warningh: [38;5;255mReturning more (or less) than 1 row per `summarise()` group was deprecated in
+dplyr 1.1.0.
+[36mℹ[38;5;255m Please use `reframe()` instead.
+[36mℹ[38;5;255m When switching from `summarise()` to `reframe()`, remember that `reframe()`
+  always returns an ungrouped data frame and adjust accordingly.
+[90mCall `lifecycle::last_lifecycle_]8;;ide:run:warnings()warnings()]8;;` to see where this warning was[38;5;255m
+[90mgenerated.[38;5;255m[39mg
+"

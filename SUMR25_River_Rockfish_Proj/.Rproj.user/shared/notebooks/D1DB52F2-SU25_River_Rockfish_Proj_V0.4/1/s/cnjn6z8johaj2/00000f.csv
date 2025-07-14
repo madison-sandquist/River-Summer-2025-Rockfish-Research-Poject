@@ -1,0 +1,8 @@
+"0","# pH"
+"0","# One-way ANOVA: "
+"0","res_pH_parturition_success <- aov(pH ~ Consensus_Brood_Condition, data = Ambient_Only_Samples)"
+"0","summary(res_pH_parturition_success)"
+"1","                          Df  Sum Sq  Mean Sq F value Pr(>F)
+Consensus_Brood_Condition  3 0.01992 0.006641   0.802  0.509
+Residuals                 18 0.14902 0.008279               
+"

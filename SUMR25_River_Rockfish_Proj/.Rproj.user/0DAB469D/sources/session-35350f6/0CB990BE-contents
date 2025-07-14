@@ -1,0 +1,2252 @@
+---
+title: "SU_25_River_Rockfish_Proj_V0.7"
+author: "River Mckegney"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+
+
+## Setup, and Packages
+
+```{r setup, include=FALSE}
+# Setup
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Code Packages:
+```{r packages}
+# Load packages
+library(gridExtra) # For using grid.table to save tables as images
+library(flextable) # Alternative method to save df as image
+library(tidyverse)
+library(zoo)
+library(lme4)
+library(lmerTest)
+library(rlang)
+library(nortest) # For ad.test
+library(car) # For homogeneity of variance with leveneTest
+library(rcompanion) # For scheirerRayHare test
+library(pastecs) # For stat.desc
+library(ggpubr) # For assumption plots
+library(conover.test) # For the conover.Iman() test function
+library(DescTools) # Contain alternative ConoverTest function
+library(rstatix) # tidyverse adapted stat tests and mshapiro_test() functions
+```
+
+
+## Intro:
+
+River Mckegney's CSUMB UROC Innovation Scholars Summer 2025 Research Project. This Research project is about gopher rockfish (*S. Carnatus*) and their physiological response to environmental exposure of low pH and dissolved oxygen, factors mimicking the synergistic effects of ocean acidification and Hypoxic (OAH) climate change stressors. The effects of OAH on *S. carnatus* reproduction will also be investigated.
+
+Gopher Rockfish (*S. carnatus*) are viviparous species, where pregnant females develop often multiple larvae internally, and give live birth during spawing season. Mothers brood in the spring (Jan-May) that coincides with a seasonal upwelling period (Apr-Jun) along the Pacific Northwest, which is known to cause environmental changes to near shore water chemistry involving a decrease in pH (more acidic) and dissolved oxygen concentrations [DO]. These changes may act as synergistic stressors, effecting *S. carnatus* physiology and reproduction. If conditions are not favorable, or energetic demands are too costly, then pregnant *S. carnatus* may reabsorb their eggs and the pregnancy aborted, a process known as atresia.
+
+This study will investigate how *S. carnatus* blood work parameters compare between patients exposed to ambient and OAH treatments (\~ treatment groups), and will also look for differences between female gopher rockfish who experience atresia and those who undergo parturition or successful pregnancy (parturition status groups), as well as comparing the two treatments and parturition status groups.
+
+## Award Credits:
+
+This project was funded by the undergraduate CSU-COAST and Jim and Peggy Ryan Marine Science Research Award Program. This project is in association with California State University Monterey Bay UROC Innovation Scholars Summer 2025 Research Program.
+
+## Objective:
+
+The goals of this study are:
+
+## Hypotheses:
+
+The hypotheses of this study are listed below:
+
+Template: 1). response to OAH stress compared to ambient treatment: 2). response to atresia compared to successful parturition: 3). response towards OAH & atresia conditions vs ambient & successful parturition:
+
+**Internal pH**
+
+pH response to OAH stress compared to ambient treatment: Healthy pregnant gopher rockfish are hypothesized to maintain their internal blood pH. Acclimitization to a new stabilized pH setpoint is also possible. Changes to internal pH could indicate compromised metabolic function. Natural change to pH due to pregnancy, and other reproduction related confounding variables could also be considered.
+
+pH response to atresia compared to successful parturition:
+
+pH response towards OAH & atresia conditions vs ambient & successful parturition:
+
+**Glucose**
+
+Glucose response to OAH stress compared to ambient treatment: Internal glucose is expected to increase in response to OAH treatment, as a physiological stress response to the supposed increased environmental stress.
+
+Glucose response to atresia compared to successful parturition: Internal glucose is expected to be greater for *S. carnatus* that experience atresia compared to those who have successful parturition. This is reaction is suspected as a stress response towards metabolic demands of egg reabsorption, and suspected high energetic demands of metabolism (indicated by atresia) stimulating immune response.
+
+Glucose response towards OAH & atresia conditions vs ambient & successful parturition: It is unknown how *S. carnatus* blood glucose levels will compare between individuals who experience OAH treatment and atresia versus those who are exposed to ambient treatment and have successful parturition.
+
+**Hematocrit**
+
+Hematocrit response to OAH stress compared to ambient treatment: The OAH treatment is hypothesized to increase percent hematocrit, as a physiological response to counter low environmental dissolved oxygen concentrations [DO], and meet adequate blood oxygen metabolic demands.
+
+Hematocrit response to atresia compared to successful parturition: Atresia patients are hypothesized to have decreased hematocrit levels in contrast to sucessful parturition *S. carnatus* individuals, because pregnancy (larvae development) is suspected to increase the blood gas demands of maternal individuals, and thus require a boost in gas exchange efficiency.
+
+Hematocrit response towards OAH & successful parturition conditions vs ambient & atresia: Individuals exposed to OAH treatment and have a sucessful pregnancy are hypothesized to have higher hematocrit levels compared to atresia patients in the ambient treatment tank.
+
+**Ions: Sodium, Chloride, Potassium, and Calcium**
+
+**Sodium: Na+**
+
+Sodium response to OAH stress compared to ambient treatment: I suspect internal blood sodium concentrations to increase in response to OAH stress. This is suspected due to the previous studies on acid secretion and NA+ absorption proposed mechanisms (Evans et al. 2005).
+
+Sodium response to atresia compared to successful parturition: This depends on how pregnancy effects natural acid-base and osmoregulatory ion balance. Furthure investigation would be required to assess this potentially confounding idea.
+
+Sodium response towards OAH & atresia conditions vs ambient & successful parturition: The interactive role of parturition and decreased environmental pH & oxygen concentrations on gopher rockfish blood sodium concentration is unknown. Due to a lack of study on the effects of parturition on ion balance it is difficult to predict how this might influence pH change variables. This experiment however could produce useful data in assessing this concept.
+
+**Potassium: K+**
+
+Potassium response to OAH stress compared to ambient treatment: A decrease in potassium levels in response to OAH treatment is hypothesized, due to the stressor inducing mild metabolic acidosis, causing a bulk movement of potassium from intracellular to extracellular spaces, where it may be excreted via diffusion through gills or skin, or lost in fecal waste.
+
+Potassium response to atresia compared to successful parturition:
+
+Potassium response towards OAH & atresia conditions vs ambient & successful parturition:
+
+**Chloride: Cl-**
+
+Chloride response to OAH stress compared to ambient treatment:
+
+Chloride response to atresia compared to successful parturition:
+
+Chloride response towards OAH & atresia conditions vs ambient & successful parturition:
+
+**Calcium: Ca+2**
+
+Calcium response to OAH stress compared to ambient treatment:
+
+Calcium response to atresia compared to successful parturition:
+
+Calcium response towards OAH & atresia conditions vs ambient & successful parturition:
+
+
+## Works Cited: Citation bibliography
+
+
+## Special Thanks:
+
+
+
+## Experiment: Add in data alaysis here
+
+
+## Data Entry: Read-in data
+
+```{r}
+# Read and call data into df
+
+# Primary samples df
+ABL90 <- read.csv("Raw_Data/ABL90_Raw.csv")
+
+# River's Parturition metadata
+partuition_subcat <- read.csv("Raw_Data/River's_Rockfish_Metadata_Parturition_V7.csv")
+```
+
+
+## Data Filtering
+
+```{r}
+# Data sifting: ABL90 dataset
+
+# Step 1: Remove missing info
+ABL_set1 <- ABL90 %>%
+  filter(Patient.ID_edited != "") 
+  
+
+# Step 2: Separate Patient.ID into columns of sample types: blood plasma and instant freeze plasma 
+ABL_set2 <- separate(ABL_set1, 'Patient.ID_edited', into = c("Patient.ID_edited", "Sample_Type"), sep = ",")  
+
+
+# Step 3:
+# Convert Patient.ID_edited column data to character type
+ABL_set2$Patient.ID_edited <- as.character(ABL_set2$Patient.ID_edited) 
+
+ABL_set3 <- ABL_set2
+
+```
+
+```{r}
+# Step 4
+# Assign NA value to only `Errors.detected.during.measurement` column
+
+ABL_set4 <- ABL_set3 
+
+# For some reason assigning NAs removes almost all obs (0nly 2 left)
+
+#  ABL_set4 <- ABL_set3 %>%
+# mutate(Errors.detected.during.measurement = na_if(Errors.detected.during.measurement, ""))
+
+
+# Alternative Method: Assign NAs to all character columns
+# ABL_set4 <- ABL_set3 %>%
+# mutate(across(where(is.character), ~ na_if(., "")))
+
+
+```
+
+
+```{r}
+# Step 5 & 6: Sussing out specific sample errors  
+
+# Remove insufficient samples
+ABL_set5 <- ABL_set4 %>%
+  filter(!is.na("Type")) %>%
+  filter(!str_detect(Errors.detected.during.measurement, "Insufficient sample"))
+
+# Remove inhomogeneous samples
+ABL_set5 <- ABL_set5 %>%
+  filter(!is.na("Type")) %>%
+  filter(!str_detect(Errors.detected.during.measurement, "Inhomogeneous sample"))
+
+# Step 6: Filter for only blood samples
+ABL_b_samp <- ABL_set5 %>%
+  filter(Sample_Type == "b")
+
+```
+
+
+## Merge Datasets:
+
+Join ABL90 df with parturition_subcat df: Making ABL_merged
+```{r}
+# Rename columns to match: Change 'ID' in parturition_subcat to 'Patient.ID_edited' so it is ready to join with ABL90 df
+
+# Please note the 'Treatment' col in parturition_subcat does not match with the finalized 'Ambient.Or.OAH' col in metadata_atresia_guide or ABL90_merged df
+
+# Rename 'ID' col to 'patient.ID_edited'
+partuition_subcat <- partuition_subcat %>%
+  rename(Patient.ID_edited = ID)
+
+```
+
+```{r}
+# Connect main ABL90 dataset with my (River's) sub categorized parturition metadata 
+# ABL_merged <- partuition_subcat %>%
+# left_join(ABL_b_samp, by = "Patient.ID_edited")
+
+ABL_merged <- ABL_b_samp %>%
+inner_join(partuition_subcat, by = "Patient.ID_edited")
+```
+
+Rename Columns Neatly:
+```{r}
+# Rename Treatment & Parturition Outcome
+ABL_merged <- ABL_merged %>%
+  rename(Ambient.Or.OAH = Consensus_General_Treatment,
+         Pregnant.Or.Atresia = Consensus_Atresia_Or_Pregnant)
+         
+```
+
+
+## Remove Samples: Mortalities, NA's, or Missing Info, and Replicates
+
+Remove Replicate ID's
+```{r}
+# Cross Check all Columns: Cross validation to suss correct replicate row
+check_params <- ABL_merged %>%
+  select(Patient.ID_edited, Time, Sample.., Measuring.Mode, Ambient.Or.OAH, Pregnant.Or.Atresia, pH, Glu..mmol.L., Hct...., Na...mmol.L., Cl...mmol.L., K...mmol.L., Ca....mmol.L., pCO2..mmHg.) %>%
+  filter(Patient.ID_edited == "9782D")
+print(check_params)
+
+check_params <- ABL_merged %>%
+  select(Patient.ID_edited, Time, Sample.., Measuring.Mode, Ambient.Or.OAH, Pregnant.Or.Atresia, pH, Glu..mmol.L., Hct...., Na...mmol.L., Cl...mmol.L., K...mmol.L., Ca....mmol.L., pCO2..mmHg.) %>%
+  filter(Patient.ID_edited == "9783D")
+print(check_params)
+
+# Removed replicates: 9782D (2x) and 9783D (2x)
+ABL_merged <- ABL_merged %>%
+  filter(Sample.. != "1016",
+         Sample.. != "863",
+         Sample.. != "934",
+         Sample.. != "860")
+
+```
+
+Review Replicates: 
+
+| Row | ID | Time | Sample.. | Measuring.Mode | pH | Glu.mmol.L. | Hct.... | Na...mmol.L. | Cl...mmol.L. | K...mmol.L. | Ca.mmol.L. |
+|:------:| :-----: | :-----: | :-----:| :------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|
+| 32 | 9782D | 12/28/2023 10:04 | 1016 | C 65uL | 7.348 | 0.5 | 9.8 | 184 | 149 | 2.8 | 1.32 |
+| 39 | 9782D | 1/9/2024 17:21 | 863 | S 65uL | 7.446 | 0.7 | 13.3 | 181 | 161 | 2.9 | 1.31 |  
+| 36 | 9783D | 1/19/2024 10:37 | 934 | S 65uL | 7.484 | 1.7 | **0.2** | 175 | 193 | **34.5** | 1.29 |
+| 41 | 9783D | 1/7/2024 12:32 | 860 | S 65uL | 7.450 | 1.3 | **14.7** | 179 | 164 | **2.5** | 1.30 |
+
+Methods for replicate sample removal:
+Check processing date of IDs, and remove samples that do not match that date.
+- 2024_Fish_Metadata.csv says ID_9782D was processed 3/29/2024
+- 2024_Fish_Metadata.csv says ID_9783D was processed 3/20/2024
+
+Note: ID_9783D replicates contains extreme differences in hematocrit and potassium parameters.
+
+Remove Motalities and No info IDs and assign analysis ready data-frames:
+```{r}
+
+# New df with Moralities removed: Note none of these samples made it into ABL90 df anyway, so looks like they are already filtered out.
+ Primary_Samples <- ABL_merged %>%
+  filter(Patient.ID_edited != "9780C", # Mortality
+         Patient.ID_edited != "777AE", # Mortality
+         Patient.ID_edited != "777CA") # Mortality after parturition
+
+
+# New df with mortality and 'No info' Id's removed
+ General_Samples <- Primary_Samples %>%
+   filter(Patient.ID_edited != "777A0", # No info
+           Patient.ID_edited != "9782F", # No info
+           Patient.ID_edited != "777B3", # No info
+           Patient.ID_edited != "777AA", # No info
+           Patient.ID_edited != "777DE", # No info
+           Patient.ID_edited != "777CE", # No info
+           Patient.ID_edited != "777A6") # No info
+ 
+# New df of Only Ambient Treatment: For testing parturition success
+ Ambient_Only_Samples <- General_Samples %>%
+   filter(Ambient.Or.OAH == "Ambient")
+```
+
+
+
+# Save filtered dataset into data-worked folder
+```{r}
+# Save merged dataset in a worked folder
+
+write.csv(x = Primary_Samples, file = "Worked-Data/Primary_Samples")
+
+write.csv(x = General_Samples, file = "Worked-Data/General_Samples")
+
+write.csv(x = Ambient_Only_Samples, file = "Worked-Data/Ambient_Only_Samples")
+```
+
+
+## Sample Size: n
+```{r}
+primary_sample_size_table <- Primary_Samples %>%
+  group_by(Ambient.Or.OAH, Pregnant.Or.Atresia) %>%
+  summarise(n_size = n_distinct(Patient.ID_edited), .groups = "drop")
+print(primary_sample_size_table)
+
+general_sample_size_table <- General_Samples %>%
+  group_by(Ambient.Or.OAH, Pregnant.Or.Atresia) %>%
+  summarise(n_size = n_distinct(Patient.ID_edited), .groups = "drop")
+print(general_sample_size_table)
+
+ambient_only_samples_table <- Ambient_Only_Samples %>%
+  group_by(Ambient.Or.OAH, Pregnant.Or.Atresia) %>%
+  summarise(n_size = n_distinct(Patient.ID_edited), .groups = "drop")
+print(ambient_only_samples_table)
+
+
+Primary_Samples %>%
+  group_by(Ambient.Or.OAH, Pregnant.Or.Atresia, Consensus_Brood_Condition) %>%
+  summarise(n_size = n_distinct(Patient.ID_edited), .groups = "drop")
+
+Primary_Samples %>%
+  group_by(Ambient.Or.OAH, Pregnant.Or.Atresia, Consensus_Fecundity) %>%
+  summarise(n_size = n_distinct(Patient.ID_edited), .groups = "drop")
+
+General_Samples %>%
+  group_by(Ambient.Or.OAH, Pregnant.Or.Atresia, Consensus_Brood_Condition) %>%
+  summarise(n_size = n_distinct(Patient.ID_edited), .groups = "drop")
+
+General_Samples %>%
+  group_by(Ambient.Or.OAH, Pregnant.Or.Atresia, Consensus_Fecundity) %>%
+  summarise(n_size = n_distinct(Patient.ID_edited), .groups = "drop")
+
+ # pdf("data-images/sample_size_table.pdf") 
+ # grid.table(sample_size_table)
+ # dev.off()
+ # 
+ # png("data-images/sample_size_table.png")
+ # grid.table(sample_size_table)
+ # dev.off()
+```
+
+
+## Visualizations - Graphs:
+Intro: Treatment & Pregnancy Outcome Exp. Overview
+
+```{r}
+# Test Vis
+n_barplot <- General_Samples %>%
+  group_by(Consensus_Fecundity, Ambient.Or.OAH) %>% 
+  summarise(n_size = n_distinct(Patient.ID_edited), .groups = "drop") %>%
+  ggplot(aes(x = Consensus_Fecundity, y = n_size, fill = Ambient.Or.OAH)) +
+  scale_fill_manual(values = c("Ambient" = "#189bff", "OAH" = "#507b7f")) +
+  geom_bar(stat = "identity" ) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 15.5), breaks = c(0, 3, 6, 9, 12, 15)) +
+  labs(title = "Sample Size Of Parturition Status and Treatments On Maternal Gopher Rockfish",
+        x = "Parturition Outcome",
+        y = "Sample Size (n)") +
+  guides(fill = guide_legend((title = "Treatment Type"))) 
+
+print(n_barplot)
+ 
+
+
+General_Samples %>%
+  group_by(Consensus_Fecundity, Ambient.Or.OAH) %>% 
+  summarise(n_size = n_distinct(Patient.ID_edited), .groups = "drop") %>%
+  ggplot(aes(x = Consensus_Fecundity, y = n_size, fill = Ambient.Or.OAH)) +
+  geom_bar(stat = "identity" ) +
+  facet_grid(~ Ambient.Or.OAH) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 15.5), breaks = c(0, 3, 6, 9, 12, 15)) +
+  labs(title = "Sample Size Of Parturition Status and Treatments On Maternal Gopher Rockfish",
+        x = "Parturition Outcome",
+        y = "Sample Size (n)") +
+  guides(fill = guide_legend((title = "Treatment Type"))) +
+  theme(axis.text.x = element_text(size = 6))
+
+
+
+
+
+General_Samples %>%
+  group_by(Consensus_Fecundity, Ambient.Or.OAH) %>% 
+  summarise(n_size = n_distinct(Patient.ID_edited), .groups = "drop") %>%
+  ggplot(aes(x = Consensus_Fecundity, y = n_size, fill = Ambient.Or.OAH)) +
+  geom_bar(stat = "identity" ) +
+  facet_grid(~ Ambient.Or.OAH) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 15.5), breaks = c(0, 3, 6, 9, 12, 15)) +
+  
+  labs(title = "Sample Size Of Parturition Status and Treatments On Maternal Gopher Rockfish",
+        x = "Parturition Outcome",
+        y = "Sample Size (n)") +
+  guides(fill = guide_legend((title = "Treatment Type"))) +
+  theme(axis.text.x = element_text(angle = 90))
+
+
+
+Ambient_Only_Samples %>%
+  group_by(Consensus_Fecundity, Ambient.Or.OAH) %>% 
+  summarise(n_size = n_distinct(Patient.ID_edited), .groups = "drop") %>%
+  ggplot(aes(x = Consensus_Fecundity, y = n_size)) +
+  geom_bar(stat = "identity") +
+  facet_grid(~ Ambient.Or.OAH) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 15.5), breaks = c(0, 3, 6, 9, 12, 15)) +
+  labs(title = "Sample Size Of Parturition Status and Treatments On Maternal Gopher Rockfish",
+        x = "Parturition Outcome",
+        y = "Sample Size (n)") +
+  guides(fill = guide_legend((title = "Parturition Success"))) 
+# + theme(axis.text.x = element_text(angle = 90))
+
+
+Ambient_Only_Samples %>%
+  group_by(Consensus_Fecundity, Ambient.Or.OAH) %>% 
+  summarise(n_size = n_distinct(Patient.ID_edited), .groups = "drop") %>%
+  ggplot(aes(x = Consensus_Fecundity, y = n_size, fill = Consensus_Fecundity)) +
+  scale_fill_manual(values = c("Atresia" = "#bf00ff", "High (>50,000)" = "#ff6600", "Low (~1,000s)" = "#ffff00", "Very Low (<1,000)" = "#00ff00")) +
+  geom_bar(stat = "identity") +
+  facet_grid(~ Ambient.Or.OAH) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 15.5), breaks = c(0, 3, 6, 9, 12, 15)) +
+  labs(title = "Sample Size Of Parturition Status and Treatments On Maternal Gopher Rockfish",
+        x = "Parturition Outcome",
+        y = "Sample Size (n)") +
+  guides(fill = guide_legend((title = "Parturition Success"))) +
+  theme(axis.text.x = element_text(angle = 90))
+
+
+```
+
+
+
+
+```{r}
+# View Sample Distributions
+sample_size_barplot <- General_Samples %>%
+  group_by(Pregnant.Or.Atresia, Ambient.Or.OAH) %>% 
+  summarise(n_size = n_distinct(Patient.ID_edited), .groups = "drop") %>%
+  ggplot(aes(x = Pregnant.Or.Atresia, y = n_size, fill = Pregnant.Or.Atresia)) +
+  geom_bar(stat = "identity" ) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 15.5), breaks = c(0, 3, 6, 9, 12, 15)) +
+  facet_grid(~ Ambient.Or.OAH) +
+  labs(title = "Sample Size Of Experimental Groups For Female Gopher Rockfish",
+        x = "Parturition Status & Treatment Type",
+        y = "Sample Size (n)") +
+  guides(fill = guide_legend((title = "Reproductive State"))) +
+  theme_classic(base_size = 10)
+
+print(sample_size_barplot)
+
+ggsave(filename = "data-images/sample_size_barplot.png", plot = sample_size_barplot, device = "png")
+ggsave(filename = "data-images/sample_size_barplot.pdf", plot = sample_size_barplot, device = "pdf")
+
+
+# More detailed:
+sample_size_barplot2 <- General_Samples %>%
+  group_by(Pregnant.Or.Atresia, Ambient.Or.OAH, Consensus_Fecundity) %>% 
+  summarise(n_size = n_distinct(Patient.ID_edited), .groups = "drop") %>%
+  ggplot(aes(x = Pregnant.Or.Atresia, y = n_size, fill = Pregnant.Or.Atresia)) +
+  geom_bar(stat = "identity" ) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 15.5), breaks = c(0, 3, 6, 9, 12, 15)) +
+  facet_grid(Ambient.Or.OAH ~ Consensus_Fecundity) +
+  labs(title = "Sample Size Of Parturition Status and Treatments On Maternal Gopher Rockfish",
+        x = "Parturition Outcome",
+        y = "Sample Size (n)") +
+  guides(fill = guide_legend((title = "Treatment Type"))) +
+  theme_classic(base_size = 10)
+
+print(sample_size_barplot2)
+
+ggsave(filename = "data-images/sample_size_barplot2.png", plot = sample_size_barplot2, device = "png")
+ggsave(filename = "data-images/sample_size_barplot2.pdf", plot = sample_size_barplot2, device = "pdf")
+```
+
+## Paramater Analysis:
+
+## Order Factor Levels
+```{r}
+
+# Arrange the order of parturition categories for visualizations & tests
+Ambient_Only_Samples$Consensus_Brood_Condition <- ordered(Ambient_Only_Samples$Consensus_Brood_Condition, levels = c("Excellent", "Normal", "Low", "Atresia"))
+```
+
+
+
+# pH
+
+
+pH Summary Stats
+```{r}
+# pH
+# Summary stats
+
+# General data
+General_Samples %>%
+  group_by(Pregnant.Or.Atresia, Ambient.Or.OAH) %>%
+  summarize(count = n(),
+            median = round(median(pH), 3),
+            mean = round(mean(pH), 3),
+            sd = round(sd(pH), 3),
+            cv = round(sd(pH)/mean(pH), 3)) %>%
+  ungroup()
+
+# Ambient data
+Ambient_Only_Samples %>%
+  group_by(Ambient.Or.OAH, Consensus_Brood_Condition) %>%
+  summarize(count = n(),
+            median = round(median(pH), 3),
+            mean = round(mean(pH), 3),
+            sd = round(sd(pH), 3),
+            cv = round(sd(pH)/mean(pH), 3)) %>%
+  ungroup()
+```
+
+
+pH Boxplot
+```{r}
+
+# pH boxplot: General samples
+pH_general_boxplot <- ggplot(data = General_Samples, aes(x = Pregnant.Or.Atresia, y = pH, fill = Ambient.Or.OAH)) +
+  geom_boxplot(aes(x = Pregnant.Or.Atresia, y = pH, fill = Ambient.Or.OAH)) +
+  geom_point(aes(color = Ambient.Or.OAH), position = position_dodge(width = 0.75), alpha = 0.3, color = "black") +
+  labs(title = "pH", x = "Parturition Type", y = "pH") +
+  guides(fill = guide_legend((title = "Treatment Type"))) + 
+  scale_fill_manual(values = c("Ambient" = "#189bff", "OAH" = "#598c78")) +
+  theme_classic() +
+  theme(panel.background = element_rect(fill = "white"),
+        plot.background = element_rect(fill = "white"),
+        legend.background = element_rect(fill = "white", color = "black"),
+        title = element_text(size = 12),
+        plot.title = element_text(size = 30, hjust = 0.5),
+        axis.text.x = element_text(size = 10),
+        axis.text.y = element_text(size = 20),
+        axis.title.x = element_text(size = 20),
+        axis.title.y = element_text(size = 20))
+
+print(pH_general_boxplot)
+
+ggsave(filename = "data-images/pH_general_boxplot.pdf", plot = pH_general_boxplot, device = "pdf")
+ggsave(filename = "data-images/pH_general_boxplot.png", plot = pH_general_boxplot, device = "png")
+
+# pH boxplot: Ambient Samples
+pH_ambient_boxplot <- ggplot(data = Ambient_Only_Samples) + 
+  geom_boxplot(aes(x = Consensus_Brood_Condition, y = pH)) +
+  geom_point(aes(x = Consensus_Brood_Condition, y = pH), alpha = 0.5, colour = "black") +
+  labs(title = "pH", x = "Parturition Success", y = "pH") +
+  facet_wrap(~ Ambient.Or.OAH) +
+  theme_classic() +
+  theme(panel.background = element_rect(fill = "white"),
+        plot.background = element_rect(fill = "white"),
+        legend.background = element_rect(fill = "white", color = "black"),
+        title = element_text(size = 12),
+        plot.title = element_text(size = 30, hjust = 0.5),
+        axis.text.x = element_text(size = 20),
+        axis.text.y = element_text(size = 20),
+        axis.title.x = element_text(size = 20),
+        axis.title.y = element_text(size = 20))
+
+print(pH_ambient_boxplot)
+
+ggsave(filename = "data-images/pH_ambient_boxplot.pdf", plot = pH_ambient_boxplot, device = "pdf")
+ggsave(filename = "data-images/pH_ambient_boxplot.png", plot = pH_ambient_boxplot, device = "png")
+
+```
+
+
+
+pH Parametric Assessment
+Data Distribution
+```{r}
+# pH
+# Parametric Assumptions
+
+# Data Distribution
+
+# Frequency Histograms
+
+hist(General_Samples$pH)
+
+hist(Ambient_Only_Samples$pH)
+
+
+# Density Histogram
+
+param_pH_range <- seq(from = 7.1, to = 7.6, by = 0.1) # Not yet included in density plot
+
+# Density vs normality curve histograms
+# Notes: Maybe set geom_density(alpha = 0.5)?
+
+General_Samples %>%
+  ggplot(aes(x = pH)) +
+  geom_histogram(bins = 20) +
+  stat_function(fun = dnorm, args = c(mean = mean(General_Samples$pH), sd = sd(General_Samples$pH)), col = "green") +
+  geom_density(col = "black") +
+  labs(title = "pH Two-Way ANOVA Test Sample Distribution")
+
+# With legend label
+General_Samples %>%
+  ggplot(aes(x = pH)) +
+  geom_histogram(binwidth = 0.01) +
+  stat_function(fun = dnorm, args = c(mean = mean(General_Samples$pH), sd = sd(General_Samples$pH)), aes(col = "Normal Distribution"), show.legend = TRUE) +
+  geom_density(aes(col = "Sample Density"), show.legend = TRUE) +
+  labs(title = "pH General Sample Distribution") +
+  scale_color_manual("Distribution", values = c("Normal Distribution" = "green", "Sample Density" = "black"))
+
+Ambient_Only_Samples %>%
+  ggplot(aes(x = pH)) +
+  geom_histogram(bins = 20) +
+  stat_function(fun = dnorm, args = c(mean = mean(Ambient_Only_Samples$pH), sd = sd(Ambient_Only_Samples$pH)), col = "green") +
+  geom_density(col = "black") +
+  facet_grid(~ Ambient.Or.OAH) +
+  labs (title = "pH Parturition Success Sample Distribution")
+
+# With legend label
+Ambient_Only_Samples %>%
+  ggplot(aes(x = pH)) +
+  geom_histogram(binwidth = 0.01) +
+  stat_function(fun = dnorm, args = c(mean = mean(Ambient_Only_Samples$pH), sd = sd(Ambient_Only_Samples$pH)), aes(col = "Normal Distribution"), show.legend = TRUE) +
+  geom_density(aes(col = "Sample Density"), show.legend = TRUE) +
+  labs(title = "pH Ambient Sample Distribution") +
+  scale_color_manual("Distribution", values = c("Normal Distribution" = "green", "Sample Density" = "black"))
+```
+
+Review of Data Distribution (Data normally distributed?)
+
+General data:
+
+Ambient data:
+
+
+pH Parametric Assessment
+General Normality Residual QQplot
+```{r}
+# pH
+# Parametric Assumptions:
+
+# Assessing Normality
+# Normality Plots
+# Note: If data is non-normal considering applying transformation
+
+# lm model of general data
+pH_lm_int <- lm(pH ~ Pregnant.Or.Atresia * Ambient.Or.OAH, data = General_Samples)
+
+# View all residual plots
+#plot(pH_lm_int)
+
+pH_res_int_qqplot <- ggqqplot(residuals(pH_lm_int)) + 
+labs(title = "pH Interactive Residual QQplot",
+     subtitle = "lm(pH ~ Parturition Outcome * Treatment)",
+                               x = "pH Theoretical Quantiles (Predicted values)",
+                               y = "pH Sample Quantiles") +
+  theme(plot.title = element_text(hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5))
+print(pH_res_int_qqplot)
+
+```
+
+Review Normality Residual QQplot (normality conditions met?):
+
+General data:
+
+
+
+pH Parametric Assessment
+Ambient Normality Residual QQplot
+```{r}
+# pH
+# Parametric Assumptions
+
+# Assessing Normality
+# Normality Plots
+
+# lm model of ambient data
+pH_lm_ambient <- lm(pH ~ Consensus_Brood_Condition, data = Ambient_Only_Samples)
+
+# View all residual plots
+#plot(pH_lm_ambient)
+
+pH_res_ambient_qqplot <- ggqqplot(residuals(pH_lm_ambient)) + 
+labs(title = "pH Parturition Success Residual QQplot",
+     subtitle = "lm(pH ~ Consensus_Brood_Condition)",
+                               x = "pH Theoretical Quantiles (Predicted values)",
+                               y = "pH Sample Quantiles") +
+  theme(plot.title = element_text(hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5))
+print(pH_res_ambient_qqplot)
+```
+
+Review Normality Residual QQplot (normality conditions met?):
+
+Ambient data: 
+
+
+
+pH Parametric Assessment
+Testing Normality
+```{r}
+# pH
+# Parametric Assumptions
+
+# Assessing Normality
+
+# Analytical Test: Options listed below
+# - Shapiro Test = for piping, shapiro_test() or in base r shapiro.test(): normal distribution
+
+# Note: Shapiro test is sensitive to sample size, small n often pass normality, so review both visuals and test results to assess if normality conditions are met or not
+
+# Note Error Message: error in `shapiro.test()`: ! sample size must be between 3 and 5000
+
+# Shapiro.test for General Samples
+General_Samples %>% shapiro_test(pH)
+
+General_Samples %>% 
+  group_by(Ambient.Or.OAH, Pregnant.Or.Atresia) %>%
+  shapiro_test(pH)
+
+# Shapito.test for Ambient Samples
+Ambient_Only_Samples %>% shapiro_test(pH)
+
+# Ambient_Only_Samples %>%
+#   group_by(Consensus_Brood_Condition) %>%
+#   shapiro_test(pH)
+
+
+```
+
+Review of Shapiro-Wilk Test (normality conditions met?)
+
+General data:
+
+Ambient data:
+
+
+pH Parametric Assessment
+Testing Normality
+```{r}
+# pH
+# Parametric Assumptions
+
+# Assessing Normality
+
+# Descriptive stat test: Stat.desc
+# Z-score reflected in 'skew.2SE' and 'kurt.2SE'
+# If these values are below 0.96 this indicates normality
+
+# Note these values are sensitive to sample size, and are most effective for relatively small sample sizes approximately n = 30-50 range 
+
+# Note Alternative methods, all appear to display same results, not sure exactly how to incorporate an lm or aov model into the stat.desc function...
+# General samples
+
+# Other methods:
+
+#stat.desc(General_Samples$pH, norm = TRUE) 
+
+# stat.desc(General_Samples[, c("pH", "Pregnant.Or.Atresia", "Ambient.Or.OAH")], norm = TRUE, desc = TRUE, p = 0.95)
+
+
+# General samples
+General_Samples %>%
+  summarise(pH, Ambient.Or.OAH, Pregnant.Or.Atresia) %>%
+  stat.desc(norm = TRUE)
+
+
+# Ambient samples
+Ambient_Only_Samples %>%
+  summarise(pH, Brood_Condition) %>%
+  stat.desc(norm = TRUE)
+
+```
+
+
+
+Summary results of pH distribution (normality criteria met?):
+
+
+
+
+pH Parametric Assessment
+Assessing Scedasticity residual vs fitted plots
+```{r}
+# pH
+# Parametric Assumptions
+# Assessing Homoscedasticity: Equal Variance of Residuals
+
+# Plotting residuals vs fitted
+
+# general samples: General factor comparison
+lm(pH ~ Pregnant.Or.Atresia * Ambient.Or.OAH, data = General_Samples) %>% plot()
+
+# ambient samples: Ambient Parturition Success comparison
+lm(pH ~ Consensus_Brood_Condition, data = Ambient_Only_Samples) %>%
+plot()
+```
+
+Review residual vs fitted plots (equal variance criteria met?):
+
+General data:
+
+Ambient data: 
+
+
+pH Parametric Assessment
+Scale Location Plot
+```{r}
+# pH
+# Scale location plot
+
+# A flat line stat model is evidence of homoscedasticity, gentle or slight curves are generally accepted as equal variance across samples, however any large, drastic, or sharp changing features to the line suggest heteroscedasticity.
+# The degree of slope of the stat model line to which we distinguish between equal or unequal variance across samples is unclear as of yet.
+
+
+# Scale location plots
+# General Samples
+
+General_Samples %>%
+  mutate(predicted_values = fitted(pH_lm_int),
+         residual_sqrt = sqrt(abs(rstandard(pH_lm_int)))) %>%
+  ggplot(aes(predicted_values, residual_sqrt)) +
+  geom_point() +
+  geom_smooth() 
+
+# Compare residuals independently
+
+# General treatment
+General_Samples %>%
+  mutate(predicted_values = fitted(pH_lm_int),
+         residual_sqrt = sqrt(abs(rstandard(pH_lm_int)))) %>%
+  ggplot(aes(Ambient.Or.OAH, residual_sqrt)) +
+  geom_point() +
+  stat_summary(geom = "line", fun = mean, color = "red")
+
+General_Samples %>%
+  mutate(predicted_values = fitted(pH_lm_int),
+         residual_sqrt = sqrt(abs(rstandard(pH_lm_int)))) %>%
+  ggplot(aes(as.numeric(as.factor(Ambient.Or.OAH)), residual_sqrt)) +
+  geom_point() +
+  stat_summary(geom = "line", fun = mean, color = "red")
+
+# General parturition outcome
+General_Samples %>%
+  mutate(predicted_values = fitted(pH_lm_int),
+         residual_sqrt = sqrt(abs(rstandard(pH_lm_int)))) %>%
+  ggplot(aes(Pregnant.Or.Atresia, residual_sqrt)) +
+  geom_point() +
+  stat_summary(geom = "line", fun = mean, color = "red")
+
+
+General_Samples %>%
+  mutate(predicted_values = fitted(pH_lm_int),
+         residual_sqrt = sqrt(abs(rstandard(pH_lm_int)))) %>%
+  ggplot(aes(as.numeric(as.factor(Pregnant.Or.Atresia)), residual_sqrt)) +
+  geom_point() +
+  stat_summary(geom = "line", fun = mean, color = "red")
+```
+
+
+pH Parametric Assessment
+Testing Scedasticity:
+```{r}
+# pH
+# Parametric Assumptions
+# Assessing Homoscedasticity: Equal Variance of Residuals
+
+# Testing scedasticity: Options listed below
+# - F-test = var.test(): For normally distributed data with two groups only)
+# - Bartlett's test = bartlett.test(): For normally distributed data with multiple groups. Sensitive to normality)
+# - Levene's Test = leveneTest(): Similar to Bartlett's test, but more robust to variance, less sensitive to normality)
+# - Fligner-Killeen test = fligner.test(): A nonparametric test, made to be even more robust against non-normal distributed data
+# - Breusch Pagan test = library(lmtest) + bptest(): test for scedasticity in linear regression models
+
+
+# Bartlett's test
+# Note Error Code: Requires at least 2 obs per group
+
+# General samples
+bartlett.test(pH ~ Ambient.Or.OAH, General_Samples)
+
+bartlett.test(pH ~ Pregnant.Or.Atresia, General_Samples)
+
+leveneTest(pH ~ Ambient.Or.OAH, General_Samples)
+
+leveneTest(pH ~ Pregnant.Or.Atresia, General_Samples)
+
+
+# Ambient samples
+
+#bartlett.test(pH ~ Consensus_Brood_Condition, Ambient_Only_Samples)
+
+leveneTest(pH ~ Consensus_Brood_Condition, Ambient_Only_Samples)
+
+```
+
+Summary results of pH residual scedasticity (equal variance of residuals):
+
+General data:
+
+Ambient data:
+
+
+
+pH Conclusions Parametric Assumptions Assessment:
+
+General data:
+
+Ambient data:
+
+
+# pH Stat Tests
+```{r}
+# pH Analysis
+# ANOVA Tests
+
+# Testing general factor differences: Treatment & Parturition Outcome
+# Two-Way ANOVA
+
+pH_aov_int <- aov(pH ~ Pregnant.Or.Atresia * Ambient.Or.OAH, data = General_Samples)
+summary(pH_aov_int) 
+
+# If interaction not significant (p-value > 0.05), use additive model
+
+pH_aov_additive <- aov(pH ~ Pregnant.Or.Atresia + Ambient.Or.OAH, data = General_Samples)
+summary(pH_aov_additive)
+
+
+# Post-Hoc Test: 
+# - Tukey's HSD test (parametric)
+# - Scheirer-Ray-Hare test (non-parametric)
+# - Aligned Ranked Transformation (ART): Nonparametric, robust against violations to normality and homoscedasticity
+# - Ordinal Logistic Regression
+
+# Tukey's Honestly Significant Difference Test (Parametric):
+pH_tukey_test <- TukeyHSD(pH_aov_int)
+print(pH_tukey_test)
+
+pH_aov_int %>% tukey_hsd()
+```
+Two-Way ANOVA Results:
+Two-way ANOVA **interactive / additive model** results indicate there is **a significant / not significant** difference in **insert parameter** between parturition outcomes, atresia or post-parturition (p-value = ), and there is **a significant / not significant** difference in **insert parameter** between treatment types, ambient or OAH (p-value = ). 
+
+
+```{r}
+# pH
+# ANOVA Tests
+
+# Testing for differences in ambient parturition success metrics
+# One-way ANOVA (parametric) or Kruskal-Wallis test (nonparametric)
+
+pH_aov_ambient <- aov(pH ~ Consensus_Brood_Condition, data = Ambient_Only_Samples)
+summary(pH_aov_ambient)
+
+
+# If significant, Post Hoc Test: 
+# - Tukey's HSD (parametric, normality & equal variance across groups)
+# - Dunn's test (non-parametric, if Kruskal-Wallis test is rejected)
+
+
+```
+
+One-Way ANOVA Results:
+One-way ANOVA results suggest **a significant / not significant** difference in **insert parameter** exists between parturition success categories. 
+
+
+
+## pH Summary:
+
+**Parameter Results Summary**: Deciding upon all evidence (data distribution, visuals, tests, parametric assumptions criteria met or not met):
+Assumptions, assumptions, assumptions...
+
+
+Two-Way ANOVA Results (Comparing General Treatment and Parturition Outcome):
+
+
+One-Way ANOVA Results (Comparing Ambient Parturition Success Metric):
+
+
+# Hct: Hematocrit
+
+
+Hct Summary Stats
+```{r}
+# hct
+# Summary stats
+
+# General data
+General_Samples %>%
+  group_by(Pregnant.Or.Atresia, Ambient.Or.OAH) %>%
+  summarize(count = n(),
+            median = round(median(Hct....), 3),
+            mean = round(mean(Hct....), 3),
+            sd = round(sd(Hct....), 3),
+            cv = round(sd(Hct....)/mean(Hct....), 3)) %>%
+  ungroup()
+
+# Ambient data
+Ambient_Only_Samples %>%
+  group_by(Ambient.Or.OAH, Consensus_Brood_Condition) %>%
+  summarize(count = n(),
+            median = round(median(Hct....), 3),
+            mean = round(mean(Hct....), 3),
+            sd = round(sd(Hct....), 3),
+            cv = round(sd(Hct....)/mean(Hct....), 3)) %>%
+  ungroup()
+```
+
+
+hct Boxplot
+```{r}
+
+# hematocrit boxplot: General Samples
+hct_general_boxplot <- ggplot(data = General_Samples, aes(x = Pregnant.Or.Atresia, y = Hct...., fill = Ambient.Or.OAH)) +
+  geom_boxplot(aes(x = Pregnant.Or.Atresia, y = Hct...., fill = Ambient.Or.OAH)) +
+  geom_point(aes(color = Ambient.Or.OAH), position = position_dodge(width = 0.75), alpha = 0.3, color = "black") +
+  labs(title = "Hematocrit", x = "Parturition Type", y = "Hct (%)") +
+  guides(fill = guide_legend((title = "Treatment Type"))) + 
+  scale_fill_manual(values = c("Ambient" = "#189bff", "OAH" = "#598c78")) +
+  theme_classic() +
+  theme(panel.background = element_rect(fill = "white"),
+        plot.background = element_rect(fill = "white"),
+        legend.background = element_rect(fill = "white", color = "black"),
+        title = element_text(size = 12),
+        plot.title = element_text(size = 30, hjust = 0.5),
+        axis.text.x = element_text(size = 10),
+        axis.text.y = element_text(size = 20),
+        axis.title.x = element_text(size = 20),
+        axis.title.y = element_text(size = 20))
+
+print(hct_general_boxplot)
+
+ggsave(filename = "data-images/hct_general_boxplot.pdf", plot = hct_general_boxplot, device = "pdf")
+ggsave(filename = "data-images/hct_general_boxplot.png", plot = hct_general_boxplot, device = "png")
+
+# Hematocrit boxplot: Ambient Samples
+hct_ambient_boxplot <- ggplot(data = Ambient_Only_Samples) + 
+  geom_boxplot(aes(x = Consensus_Brood_Condition, y = Hct....)) +
+  geom_point(aes(x = Consensus_Brood_Condition, y = Hct....), alpha = 0.5, colour = "black") +
+  labs(title = "Hematocrit", x = "Parturition Success", y = "% Hct") +
+  facet_wrap(~ Ambient.Or.OAH) +
+  theme_classic() +
+  theme(panel.background = element_rect(fill = "white"),
+        plot.background = element_rect(fill = "white"),
+        legend.background = element_rect(fill = "white", color = "black"),
+        title = element_text(size = 12),
+        plot.title = element_text(size = 30, hjust = 0.5),
+        axis.text.x = element_text(size = 20),
+        axis.text.y = element_text(size = 20),
+        axis.title.x = element_text(size = 20),
+        axis.title.y = element_text(size = 20))
+
+print(hct_ambient_boxplot)
+
+ggsave(filename = "data-images/hct_ambient_boxplot.pdf", plot = hct_ambient_boxplot, device = "pdf")
+ggsave(filename = "data-images/hct_ambient_boxplot.png", plot = hct_ambient_boxplot, device = "png")
+```
+
+
+
+Hct Parametric Assessment:
+Data Distribution
+```{r}
+# hct
+# Parametric Assumptions
+
+# Data Distribution
+
+# Frequency Histograms
+hist(General_Samples$Hct....)
+hist(Ambient_Only_Samples$Hct....)
+
+# Density Histogram
+
+# Density vs normality curve histograms
+# Notes: Maybe set geom_density(alpha = 0.5)?
+
+General_Samples %>%
+  ggplot(aes(x = Hct....)) +
+  geom_histogram(binwidth = 0.01) +
+  stat_function(fun = dnorm, args = c(mean = mean(Ambient_Only_Samples$Hct....), sd = sd(General_Samples$Hct....)), col = "green") +
+  geom_density(col = "black") +
+  labs (title = "Hct General Sample Distribution")
+
+# With legend label
+General_Samples %>%
+  ggplot(aes(x = Hct....)) +
+  geom_histogram(binwidth = 0.01) +
+  stat_function(fun = dnorm, args = c(mean = mean(General_Samples$Hct....), sd = sd(General_Samples$Hct....)), aes(col = "Normal Distribution"), show.legend = TRUE) +
+  geom_density(aes(col = "Sample Density"), show.legend = TRUE) +
+  labs(title = "Hct General Sample Distribution") +
+  scale_color_manual("Distribution", values = c("Normal Distribution" = "green", "Sample Density" = "black"))
+
+Ambient_Only_Samples %>%
+  ggplot(aes(x = Hct....)) +
+  geom_histogram(binwidth = 0.01) +
+  stat_function(fun = dnorm, args = c(mean = mean(Ambient_Only_Samples$Hct....), sd = sd(Ambient_Only_Samples$Hct....)), col = "green") +
+  geom_density(col = "black") +
+  facet_grid(~ Ambient.Or.OAH) +
+  labs (title = "Hct Ambient Sample Distribution")
+
+# With legend label
+Ambient_Only_Samples %>%
+  ggplot(aes(x = Hct....)) +
+  geom_histogram(binwidth = 0.01) +
+  stat_function(fun = dnorm, args = c(mean = mean(Ambient_Only_Samples$Hct....), sd = sd(Ambient_Only_Samples$Hct....)), aes(col = "Normal Distribution"), show.legend = TRUE) +
+  geom_density(aes(col = "Sample Density"), show.legend = TRUE) +
+  labs(title = "Hct Ambient Sample Distribution") +
+  scale_color_manual("Distribution", values = c("Normal Distribution" = "green", "Sample Density" = "black"))
+```
+
+Review of Data Distribution (Data normally distributed?)
+
+General data:
+
+Ambient data:
+
+
+
+Hct Parametric Assessment
+General Normality Residual QQplot
+```{r}
+# hct
+# Parametric Assumptions:
+
+# Assessing Normality
+# Normality Plots
+# Note: If data is non-normal considering applying transformation
+
+# lm model of general data
+hct_lm_int <- lm(Hct.... ~ Pregnant.Or.Atresia * Ambient.Or.OAH, data = General_Samples)
+
+# View all residual plots
+#plot(hct_lm_int)
+
+hct_res_int_qqplot <- ggqqplot(residuals(hct_lm_int)) + 
+labs(title = "Hct Interactive Residual QQplot",
+     subtitle = "lm(Hct.... ~ Parturition Outcome * Treatment)",
+                               x = "Hct Theoretical Quantiles (Predicted values)",
+                               y = "Hct Sample Quantiles") +
+  theme(plot.title = element_text(hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5))
+print(hct_res_int_qqplot)
+
+```
+
+Review of Residual QQplot (normality conditions met?)
+
+General data:
+
+
+
+Hct Parametric Assessment
+Ambient Normality Residual QQplot
+```{r}
+# hct
+# Parametric Assumptions
+
+# Assessing Normality
+# Normality Plots
+
+# lm model of ambient data
+hct_lm_ambient <- lm(Hct.... ~ Consensus_Brood_Condition, data = Ambient_Only_Samples)
+
+# View all residual plots
+#plot(hct_lm_ambient)
+
+hct_res_ambient_qqplot <- ggqqplot(residuals(hct_lm_ambient)) + 
+labs(title = "Hct Parturition Success Residual QQplot",
+     subtitle = "lm(hct ~ Consensus_Brood_Condition)",
+                               x = "Hct Theoretical Quantiles (Predicted values)",
+                               y = "Hct Sample Quantiles") +
+  theme(plot.title = element_text(hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5))
+print(hct_res_ambient_qqplot)
+```
+
+Review of Residual QQplot (normality conditions met?)
+
+Ambient data:
+
+
+
+Hct Parametric Assessment
+Testing Normality
+```{r}
+# hct
+# Parametric Assumptions
+
+# Assessing Normality
+
+# Analytical Test: Options listed below
+# - Shapiro Test = for piping, shapiro_test() or in base r shapiro.test(): normal distribution
+
+# Note: Shapiro test is sensitive to sample size, small n often pass normality, so review both visuals and test results to assess if normality conditions are met or not
+
+# Note Error Message: error in `shapiro.test()`: ! sample size must be between 3 and 5000
+
+# Shapiro.test for General Samples
+General_Samples %>% shapiro_test(Hct....)
+
+General_Samples %>% 
+  group_by(Ambient.Or.OAH, Pregnant.Or.Atresia) %>%
+  shapiro_test(Hct....)
+
+# Shapiro.test for Ambient Samples
+Ambient_Only_Samples %>% shapiro_test(Hct....)
+
+# Ambient_Only_Samples %>%
+#   group_by(Consensus_Brood_Condition) %>%
+#   shapiro_test(Hct....)
+
+```
+
+Review of Shapiro-Wilk test (normality conditions met?):
+
+General data:
+
+Ambient data:
+
+
+
+Hct Parametric Assessment
+Testing Normality
+```{r}
+# hct
+# Parametric Assumptions
+
+# Assessing Normality
+
+# Descriptive stat test: Stat.desc
+# Z-score reflected in 'skew.2SE' and 'kurt.2SE'
+# If these values are below 0.96 this indicates normality
+
+# Note these values are sensitive to sample size, and are most effective for relatively small sample sizes approximately n = 30-50 range 
+
+# Note Alternative methods, all appear to display same results, not sure exactly how to incorporate an lm or aov model into the stat.desc function...
+
+# General samples
+General_Samples %>%
+  summarise(Hct...., Ambient.Or.OAH, Pregnant.Or.Atresia) %>%
+  stat.desc(norm = TRUE)
+
+
+# Ambient samples
+Ambient_Only_Samples %>%
+  summarise(Hct...., Brood_Condition) %>%
+  stat.desc(norm = TRUE)
+
+```
+
+
+
+Summary results of Hct distribution (normality criteria met?):
+
+General data:
+
+Ambient data:
+
+
+
+Hct Parametric Assessment
+Assessing Scedasticity residual vs fitted plots
+```{r}
+# hct
+# Parametric Assumptions
+# Assessing Homoscedasticity: Equal Variance of Residuals
+
+# Plotting residuals vs fitted
+
+# Two-way ANOVA Interactive/Additive model: General factor comparison
+lm(Hct.... ~ Pregnant.Or.Atresia * Ambient.Or.OAH, data = General_Samples) %>% plot()
+
+# One-Way ANOVA model: Ambient Parturition Success comparison
+lm(Hct.... ~ Consensus_Brood_Condition, data = Ambient_Only_Samples) %>%
+plot()
+
+# Exploratory investigations...
+lm_ambient_fecund_int <- lm(Hct.... ~ Consensus_Brood_Condition * Consensus_Fecundity, data = Ambient_Only_Samples) 
+plot(lm_ambient_fecund_int)
+
+lm_ambient_fecund_add <- lm(Hct.... ~ Consensus_Brood_Condition + Consensus_Fecundity, data = Ambient_Only_Samples) 
+plot(lm_ambient_fecund_int)
+```
+
+Review residual vs fitted plots (equal variance criteria met?):
+
+General data:
+
+Ambient data:
+
+
+
+Hct Parametric Assessment
+Scale Location Plot
+```{r}
+# hct
+# Scale location plot
+
+# A flat line stat model is evidence of homoscedasticity, gentle or slight curves are generally accepted as equal variance across samples, however any large, drastic, or sharp changing features to the line suggest heteroscedasticity.
+# The degree of slope of the stat model line to which we distinguish between equal or unequal variance across samples is unclear as of yet.
+
+
+# Scale location plots
+# General Samples
+
+General_Samples %>%
+  mutate(predicted_values = fitted(hct_lm_int),
+         residual_sqrt = sqrt(abs(rstandard(hct_lm_int)))) %>%
+  ggplot(aes(predicted_values, residual_sqrt)) +
+  geom_point() +
+  geom_smooth() 
+
+# Compare residuals independently
+
+# General treatment
+General_Samples %>%
+  mutate(predicted_values = fitted(hct_lm_int),
+         residual_sqrt = sqrt(abs(rstandard(hct_lm_int)))) %>%
+  ggplot(aes(Ambient.Or.OAH, residual_sqrt)) +
+  geom_point() +
+  stat_summary(geom = "line", fun = mean, color = "red")
+
+General_Samples %>%
+  mutate(predicted_values = fitted(hct_lm_int),
+         residual_sqrt = sqrt(abs(rstandard(hct_lm_int)))) %>%
+  ggplot(aes(as.numeric(as.factor(Ambient.Or.OAH)), residual_sqrt)) +
+  geom_point() +
+  stat_summary(geom = "line", fun = mean, color = "red")
+
+# General parturition outcome
+General_Samples %>%
+  mutate(predicted_values = fitted(hct_lm_int),
+         residual_sqrt = sqrt(abs(rstandard(hct_lm_int)))) %>%
+  ggplot(aes(Pregnant.Or.Atresia, residual_sqrt)) +
+  geom_point() +
+  stat_summary(geom = "line", fun = mean, color = "red")
+
+
+General_Samples %>%
+  mutate(predicted_values = fitted(hct_lm_int),
+         residual_sqrt = sqrt(abs(rstandard(hct_lm_int)))) %>%
+  ggplot(aes(as.numeric(as.factor(Pregnant.Or.Atresia)), residual_sqrt)) +
+  geom_point() +
+  stat_summary(geom = "line", fun = mean, color = "red")
+```
+
+
+
+```{r}
+# hct
+# Scale location plot
+
+# A flat line stat model is evidence of homoscedasticity, gentle or slight curves are generally accepted as equal variance across samples, however any large, drastic, or sharp changing features to the line suggest heteroscedasticity.
+# The degree of slope of the stat model line to which we distinguish between equal or unequal variance across samples is unclear as of yet.
+
+# Scale location plots
+# Ambient Samples
+
+# Without interactive or additive linear models, the code does not work...
+
+# Ambient_Only_Samples %>%
+#   mutate(predicted_values = fitted(hct_lm_ambient),
+#          residual_sqrt = sqrt(abs(rstandard(hct_lm_ambient)))) %>%
+#   ggplot(aes(predicted_values, residual_sqrt)) +
+#   geom_point() +
+#   geom_smooth() 
+
+# Compare residuals independently
+
+# parturition success
+
+# Ambient_Only_Samples %>%
+#   mutate(predicted_values = fitted(hct_lm_ambient),
+#          residual_sqrt = sqrt(abs(rstandard(hct_lm_ambient)))) %>%
+#   ggplot(aes(Pregnant.Or.Atresia, residual_sqrt)) +
+#   geom_point() +
+#   stat_summary(geom = "line", fun = mean, color = "red")
+# 
+# 
+# Ambient_Only_Samples %>%
+#   mutate(predicted_values = fitted(hct_lm_ambient),
+#          residual_sqrt = sqrt(abs(rstandard(hct_lm_ambient)))) %>%
+#   ggplot(aes(as.numeric(as.factor(Pregnant.Or.Atresia)), residual_sqrt)) +
+#   geom_point() +
+#   stat_summary(geom = "line", fun = mean, color = "red")
+
+
+# Using ambient fecundity interaction and additive linear model
+# Note both models show same results
+
+Ambient_Only_Samples %>%
+  mutate(predicted_values = fitted(lm_ambient_fecund_int),
+         residual_sqrt = sqrt(abs(rstandard(lm_ambient_fecund_int)))) %>%
+  ggplot(aes(predicted_values, residual_sqrt)) +
+  geom_point() +
+  geom_smooth()
+
+Ambient_Only_Samples %>%
+  mutate(predicted_values = fitted(lm_ambient_fecund_add),
+         residual_sqrt = sqrt(abs(rstandard(lm_ambient_fecund_add)))) %>%
+  ggplot(aes(predicted_values, residual_sqrt)) +
+  geom_point() +
+  geom_smooth()
+
+# Compare residuals independently
+
+# parturition success
+
+Ambient_Only_Samples %>%
+  mutate(predicted_values = fitted(lm_ambient_fecund_int),
+         residual_sqrt = sqrt(abs(rstandard(lm_ambient_fecund_add)))) %>%
+  ggplot(aes(Pregnant.Or.Atresia, residual_sqrt)) +
+  geom_point() +
+  stat_summary(geom = "line", fun = mean, color = "red")
+
+
+Ambient_Only_Samples %>%
+  mutate(predicted_values = fitted(lm_ambient_fecund_int),
+         residual_sqrt = sqrt(abs(rstandard(lm_ambient_fecund_int)))) %>%
+  ggplot(aes(as.numeric(as.factor(Pregnant.Or.Atresia)), residual_sqrt)) +
+  geom_point() +
+  stat_summary(geom = "line", fun = mean, color = "red")
+```
+
+
+
+Hct Parametric Assessment
+Testing Scedasticity:
+```{r}
+# hct
+# Parametric Assumptions
+# Assessing Homoscedasticity: Equal Variance of Residuals
+
+# Testing scedasticity: Options listed below
+# - F-test = var.test(): For normally distributed data with two groups only)
+# - Bartlett's test = bartlett.test(): For normally distributed data with multiple groups. Sensitive to normality)
+# - Levene's Test = leveneTest(): Similar to Bartlett's test, but more robust to variance, less sensitive to normality)
+# - Fligner-Killeen test = fligner.test(): A nonparametric test, made to be even more robust against non-normal distributed data
+# - Brown-Forsythe Test = 
+# - Breusch Pagan test = library(lmtest) + bptest(): test for scedasticity in linear regression models
+
+# Bartlett's test
+# Note Error Code: Requires at least 2 obs per group
+
+# General samples
+bartlett.test(Hct.... ~ Ambient.Or.OAH, General_Samples)
+
+bartlett.test(Hct.... ~ Pregnant.Or.Atresia, General_Samples)
+
+leveneTest(Hct.... ~ Ambient.Or.OAH, General_Samples)
+
+leveneTest(Hct.... ~ Pregnant.Or.Atresia, General_Samples)
+
+# Ambient samples
+#bartlett.test(Hct.... ~ Consensus_Brood_Condition, Ambient_Only_Samples)
+
+leveneTest(Hct.... ~ Consensus_Brood_Condition, Ambient_Only_Samples)
+
+```
+
+Review Scedasticity tests (equal variance criteria met?):
+
+General data:
+
+Ambient data:
+
+
+
+Summary results of hct scedasticity (equal variance of residuals):
+
+General data:
+
+Ambient data:
+
+
+
+Hematocrit Conclusions Parametric Assumptions Assessment:
+
+General data:
+
+Ambient data:
+
+
+
+# Hct Stat Tests
+
+Hct Statistical tests: Two-way anova with general data
+```{r}
+# hct Analysis
+# ANOVA Tests
+
+# Testing general factor differences: Treatment & Parturition Outcome
+# Two-Way ANOVA
+
+hct_aov_int <- aov(Hct.... ~ Pregnant.Or.Atresia * Ambient.Or.OAH, data = General_Samples)
+summary(hct_aov_int) 
+
+# If Interaction not significant (p-value > 0.05), use additive model
+
+hct_aov_additive <- aov(Hct.... ~ Pregnant.Or.Atresia + Ambient.Or.OAH, data = General_Samples)
+summary(hct_aov_additive)
+
+# Post-Hoc Test: 
+# - Tukey's HSD test (parametric)
+# - Scheirer-Ray-Hare test (non-parametric)
+# - Aligned Ranked Transformation (ART): Nonparametric, robust against violations to normality and homoscedasticity
+# - Ordinal Logistic Regression
+
+# Tukey's Honestly Significant Difference Test (Parametric):
+hct_tukey_test <- TukeyHSD(hct_aov_int)
+print(hct_tukey_test)
+
+hct_aov_int %>% tukey_hsd()
+
+```
+Two-Way ANOVA Results:
+Two-way ANOVA **interactive / additive model** results indicate there is **a significant / not significant** difference in **insert parameter** between parturition outcomes, atresia or post-parturition (p-value = ), and there is **a significant / not significant** difference in **insert parameter** between treatment types, ambient or OAH (p-value = ). 
+
+
+
+Hct Statistical tests: One-way anova with ambient data
+```{r}
+# hct
+# ANOVA Tests
+
+# Testing for differences in ambient parturition success metrics
+# One-way ANOVA (parametric) or Kruskal-Wallis test (nonparametric)
+
+hct_aov_ambient <- aov(Hct.... ~ Consensus_Brood_Condition, data = Ambient_Only_Samples)
+summary(hct_aov_ambient)
+
+
+# Post-Hoc Test: 
+# - Tukey's HSD (parametric, normality & equal variance across groups)
+# - Kruskal Wallis (nonparametric option)
+# - Dunn's test (non-parametric, conduct after Kruskal-Wallis test)
+
+
+```
+
+One-Way ANOVA Results:
+One-way ANOVA results suggest **a significant / not significant** difference in **insert parameter** exists between parturition success categories. 
+
+
+
+## Hct Summary:
+
+**Parameter Results Summary**: Deciding upon all evidence (data distribution, visuals, tests, parametric assumptions criteria met or not met):
+Assumptions, assumptions, assumptions...
+
+
+Two-Way ANOVA Results (Comparing General Treatment and Parturition Outcome):
+
+
+One-Way ANOVA Results (Comparing Ambient Parturition Success Metric):
+
+
+
+# Glucose: Blood Sugar (umol/L)
+
+
+Glucose Summary Stats
+```{r}
+# glucose
+# Summary stats
+
+# General data
+General_Samples %>%
+  group_by(Pregnant.Or.Atresia, Ambient.Or.OAH) %>%
+  summarize(count = n(),
+            median = round(median(Glu..mmol.L.), 3),
+            mean = round(mean(Glu..mmol.L.), 3),
+            sd = round(sd(Glu..mmol.L.), 3),
+            cv = round(sd(Glu..mmol.L.)/mean(Glu..mmol.L.), 3)) %>%
+  ungroup()
+
+# Ambient data
+Ambient_Only_Samples %>%
+  group_by(Ambient.Or.OAH, Consensus_Brood_Condition) %>%
+  summarize(count = n(),
+            median = round(median(Glu..mmol.L.), 3),
+            mean = round(mean(Glu..mmol.L.), 3),
+            sd = round(sd(Glu..mmol.L.), 3),
+            cv = round(sd(Glu..mmol.L.)/mean(Glu..mmol.L.), 3)) %>%
+  ungroup()
+```
+
+
+Glucose Boxplot
+```{r}
+
+# Glucose boxplot: General samples
+glu_general_boxplot <- ggplot(data = General_Samples, aes(x = Pregnant.Or.Atresia, y = Glu..mmol.L., fill = Ambient.Or.OAH)) +
+  geom_boxplot(aes(x = Pregnant.Or.Atresia, y = Glu..mmol.L., fill = Ambient.Or.OAH)) +
+  geom_point(aes(color = Ambient.Or.OAH), position = position_dodge(width = 0.75), alpha = 0.3, color = "black") +
+  labs(title = "Glucose", x = "Parturition Type", y = "Glucose (mmol/L)") +
+  guides(fill = guide_legend((title = "Treatment Type"))) + 
+  scale_fill_manual(values = c("Ambient" = "#189bff", "OAH" = "#598c78")) +
+  theme_classic() +
+  theme(panel.background = element_rect(fill = "white"),
+        plot.background = element_rect(fill = "white"),
+        legend.background = element_rect(fill = "white", color = "black"),
+        title = element_text(size = 12),
+        plot.title = element_text(size = 30, hjust = 0.5),
+        axis.text.x = element_text(size = 10),
+        axis.text.y = element_text(size = 20),
+        axis.title.x = element_text(size = 20),
+        axis.title.y = element_text(size = 20))
+
+print(glu_general_boxplot)
+
+ggsave(filename = "data-images/glu_general_boxplot.pdf", plot = glu_general_boxplot, device = "pdf")
+ggsave(filename = "data-images/glu_general_boxplot.png", plot = glu_general_boxplot, device = "png")
+
+# Glucose boxplot: Ambient Samples
+glu_ambient_boxplot <- ggplot(data = Ambient_Only_Samples) + 
+  geom_boxplot(aes(x = Consensus_Brood_Condition, y = Glu..mmol.L.)) +
+  geom_point(aes(x = Consensus_Brood_Condition, y = Glu..mmol.L.), alpha = 0.5, colour = "black") +
+  labs(title = "Glucose", x = "Parturition Success", y = "Glucose (mmol/L)") +
+  facet_wrap(~ Ambient.Or.OAH) +
+  theme_classic() +
+  theme(panel.background = element_rect(fill = "white"),
+        plot.background = element_rect(fill = "white"),
+        legend.background = element_rect(fill = "white", color = "black"),
+        title = element_text(size = 12),
+        plot.title = element_text(size = 30, hjust = 0.5),
+        axis.text.x = element_text(size = 20),
+        axis.text.y = element_text(size = 20),
+        axis.title.x = element_text(size = 20),
+        axis.title.y = element_text(size = 20))
+
+print(glu_ambient_boxplot)
+
+ggsave(filename = "data-images/glu_ambient_boxplot.pdf", plot = glu_ambient_boxplot, device = "pdf")
+ggsave(filename = "data-images/glu_ambient_boxplot.png", plot = glu_ambient_boxplot, device = "png")
+
+```
+
+
+
+Glucose Parametric Assessment
+Data Distribution
+```{r}
+# Glucose
+# Parametric Assumptions
+
+# Data Distribution
+
+# Frequency Histograms
+
+hist(General_Samples$Glu..mmol.L.)
+
+hist(Ambient_Only_Samples$Glu..mmol.L.)
+
+
+# Density Histogram
+
+# Density vs normality curve histograms
+# Notes: Maybe set geom_density(alpha = 0.5)?
+
+General_Samples %>%
+  ggplot(aes(x = Glu..mmol.L.)) +
+  geom_histogram(binwidth = 0.01) +
+  stat_function(fun = dnorm, args = c(mean = mean(General_Samples$Glu..mmol.L.), sd = sd(General_Samples$Glu..mmol.L.)), col = "green") +
+  geom_density(col = "black") +
+  labs(title = "Glucose General Sample Distribution")
+
+# With legend label
+General_Samples %>%
+  ggplot(aes(x = Glu..mmol.L.)) +
+  geom_histogram(binwidth = 0.01) +
+  stat_function(fun = dnorm, args = c(mean = mean(General_Samples$Glu..mmol.L.), sd = sd(General_Samples$Glu..mmol.L.)), aes(col = "Normal Distribution"), show.legend = TRUE) +
+  geom_density(aes(col = "Sample Density"), show.legend = TRUE) +
+  labs(title = "Glucose General Sample Distribution") +
+  scale_color_manual("Distribution", values = c("Normal Distribution" = "green", "Sample Density" = "black"))
+
+Ambient_Only_Samples %>%
+  ggplot(aes(x = Glu..mmol.L.)) +
+  geom_histogram(binwidth = 0.01) +
+  stat_function(fun = dnorm, args = c(mean = mean(Ambient_Only_Samples$Glu..mmol.L.), sd = sd(Ambient_Only_Samples$Glu..mmol.L.)), col = "green") +
+  geom_density(col = "black") +
+  facet_grid(~ Ambient.Or.OAH) +
+  labs (title = "Glucose Ambient Sample Distribution")
+
+# With legend label
+Ambient_Only_Samples %>%
+  ggplot(aes(x = Glu..mmol.L.)) +
+  geom_histogram(binwidth = 0.01) +
+  stat_function(fun = dnorm, args = c(mean = mean(Ambient_Only_Samples$Glu..mmol.L.), sd = sd(Ambient_Only_Samples$Glu..mmol.L.)), aes(col = "Normal Distribution"), show.legend = TRUE) +
+  geom_density(aes(col = "Sample Density"), show.legend = TRUE) +
+  labs(title = "Glucose Ambient Sample Distribution") +
+  scale_color_manual("Distribution", values = c("Normal Distribution" = "green", "Sample Density" = "black"))
+```
+
+Review of Data Distribution (Data normally distributed?)
+
+General data:
+
+Ambient data:
+
+
+Glucose Parametric Assessment
+General Normality Residual QQplot
+```{r}
+# Glucose
+# Parametric Assumptions:
+
+# Assessing Normality
+# Normality Plots
+# Note: If data is non-normal considering applying transformation
+
+# lm model of general data
+glu_lm_int <- lm(Glu..mmol.L. ~ Pregnant.Or.Atresia * Ambient.Or.OAH, data = General_Samples)
+
+# View all residual plots
+#plot(glu_lm_int)
+
+glu_res_int_qqplot <- ggqqplot(residuals(glu_lm_int)) + 
+labs(title = "Glucose Interactive Residual QQplot",
+     subtitle = "lm(Glu..mmol.L. ~ Parturition Outcome * Treatment)",
+                               x = "Glucose Theoretical Quantiles (Predicted values)",
+                               y = "Glucose Sample Quantiles") +
+  theme(plot.title = element_text(hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5))
+print(glu_res_int_qqplot)
+
+```
+
+Review Normality Residual QQplot (normality conditions met?):
+
+General data:
+
+
+
+Glucose Parametric Assessment
+Ambient Normality Residual QQplot
+```{r}
+# Glucose
+# Parametric Assumptions
+
+# Assessing Normality
+# Normality Plots
+
+# lm model of ambient data
+glu_lm_ambient <- lm(Glu..mmol.L. ~ Consensus_Brood_Condition, data = Ambient_Only_Samples)
+
+# View all residual plots
+#plot(glu_lm_ambient)
+
+glu_res_ambient_qqplot <- ggqqplot(residuals(glu_lm_ambient)) + 
+labs(title = "Glucose Parturition Success Residual QQplot",
+     subtitle = "lm(Glucose ~ Consensus_Brood_Condition)",
+                               x = "Glucose Theoretical Quantiles (Predicted values)",
+                               y = "Glucose Sample Quantiles") +
+  theme(plot.title = element_text(hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5))
+print(glu_res_ambient_qqplot)
+```
+
+Review Normality Residual QQplot (normality conditions met?):
+
+Ambient data: 
+
+
+
+Glucose Parametric Assessment
+Testing Normality
+```{r}
+# Glucose
+# Parametric Assumptions
+
+# Assessing Normality
+
+# Analytical Test: Options listed below
+# - Shapiro Test = for piping, shapiro_test() or in base r shapiro.test(): normal distribution
+
+# Note: Shapiro test is sensitive to sample size, small n often pass normality, so review both visuals and test results to assess if normality conditions are met or not
+
+# Note Error Message: error in `shapiro.test()`: ! sample size must be between 3 and 5000
+
+# Shapiro.test for General Samples
+General_Samples %>% shapiro_test(Glu..mmol.L.)
+
+General_Samples %>% 
+  group_by(Ambient.Or.OAH, Pregnant.Or.Atresia) %>%
+  shapiro_test(Glu..mmol.L.)
+
+# Shapito.test for Ambient Samples
+Ambient_Only_Samples %>% shapiro_test(Glu..mmol.L.)
+
+# Ambient_Only_Samples %>%
+#   group_by(Consensus_Brood_Condition) %>%
+#   shapiro_test(Glu..mmol.L.)
+
+
+```
+
+Review of Shapiro-Wilk test (normality conditions met?):
+
+General data:
+
+Ambient data:
+
+
+
+Glucose Parametric Assessment
+Testing Normality
+```{r}
+# Glucose
+# Parametric Assumptions
+
+# Assessing Normality
+
+# Descriptive stat test: Stat.desc
+# Z-score reflected in 'skew.2SE' and 'kurt.2SE'
+# If these values are below 0.96 this indicates normality
+
+# Note these values are sensitive to sample size, and are most effective for relatively small sample sizes approximately n = 30-50 range 
+
+# Note Alternative methods, all appear to display same results, not sure exactly how to incorporate an lm or aov model into the stat.desc function...
+
+# General samples
+General_Samples %>%
+  summarise(Glu..mmol.L., Ambient.Or.OAH, Pregnant.Or.Atresia) %>%
+  stat.desc(norm = TRUE)
+
+
+# Ambient samples
+Ambient_Only_Samples %>%
+  summarise(Glu..mmol.L., Brood_Condition) %>%
+  stat.desc(norm = TRUE)
+```
+
+
+Summary results of Glucose distribution (normality criteria met?):
+
+General data:
+
+Ambient data:
+
+
+
+Glucose Parametric Assessment
+Assessing Scedasticity residual vs fitted plots
+```{r}
+# Glucose
+# Parametric Assumptions
+# Assessing Homoscedasticity: Equal Variance of Residuals
+
+# Plotting residuals vs fitted
+
+# Two-way ANOVA Interactive/Additive model: General factor comparison
+lm(Glu..mmol.L. ~ Pregnant.Or.Atresia * Ambient.Or.OAH, data = General_Samples) %>% plot()
+
+# One-Way ANOVA model: Ambient Parturition Success comparison
+lm(Glu..mmol.L. ~ Consensus_Brood_Condition, data = Ambient_Only_Samples) %>%
+plot()
+
+```
+
+Review residual vs fitted plots (equal variance criteria met?):
+
+General data:
+
+Ambient data: 
+
+
+Glucose Parametric Assessment
+Scale Location Plot
+```{r}
+# Glucose
+# Scale location plot
+
+# A flat line stat model is evidence of homoscedasticity, gentle or slight curves are generally accepted as equal variance across samples, however any large, drastic, or sharp changing features to the line suggest heteroscedasticity.
+# The degree of slope of the stat model line to which we distinguish between equal or unequal variance across samples is unclear as of yet.
+
+
+# Scale location plots
+# General Samples
+
+General_Samples %>%
+  mutate(predicted_values = fitted(glu_lm_int),
+         residual_sqrt = sqrt(abs(rstandard(glu_lm_int)))) %>%
+  ggplot(aes(predicted_values, residual_sqrt)) +
+  geom_point() +
+  geom_smooth() 
+
+# Compare residuals independently
+
+# General treatment
+General_Samples %>%
+  mutate(predicted_values = fitted(glu_lm_int),
+         residual_sqrt = sqrt(abs(rstandard(glu_lm_int)))) %>%
+  ggplot(aes(Ambient.Or.OAH, residual_sqrt)) +
+  geom_point() +
+  stat_summary(geom = "line", fun = mean, color = "red")
+
+General_Samples %>%
+  mutate(predicted_values = fitted(glu_lm_int),
+         residual_sqrt = sqrt(abs(rstandard(glu_lm_int)))) %>%
+  ggplot(aes(as.numeric(as.factor(Ambient.Or.OAH)), residual_sqrt)) +
+  geom_point() +
+  stat_summary(geom = "line", fun = mean, color = "red")
+
+# General parturition outcome
+General_Samples %>%
+  mutate(predicted_values = fitted(glu_lm_int),
+         residual_sqrt = sqrt(abs(rstandard(glu_lm_int)))) %>%
+  ggplot(aes(Pregnant.Or.Atresia, residual_sqrt)) +
+  geom_point() +
+  stat_summary(geom = "line", fun = mean, color = "red")
+
+
+General_Samples %>%
+  mutate(predicted_values = fitted(glu_lm_int),
+         residual_sqrt = sqrt(abs(rstandard(glu_lm_int)))) %>%
+  ggplot(aes(as.numeric(as.factor(Pregnant.Or.Atresia)), residual_sqrt)) +
+  geom_point() +
+  stat_summary(geom = "line", fun = mean, color = "red")
+```
+
+
+Glucose Parametric Assessment
+Testing Scedasticity:
+```{r}
+# Glucose
+# Parametric Assumptions
+# Assessing Homoscedasticity: Equal Variance of Residuals
+
+# Testing scedasticity: Options listed below
+# - F-test = var.test(): For normally distributed data with two groups only)
+# - Bartlett's test = bartlett.test(): For normally distributed data with multiple groups. Sensitive to normality)
+# - Levene's Test = leveneTest(): Similar to Bartlett's test, but more robust to variance, less sensitive to normality)
+# - Fligner-Killeen test = fligner.test(): A nonparametric test, made to be even more robust against non-normal distributed data
+# - Breusch Pagan test = library(lmtest) + bptest(): test for scedasticity in linear regression models
+
+
+# Bartlett's test
+# Note Error Code: Requires at least 2 obs per group
+
+# General samples
+bartlett.test(Glu..mmol.L. ~ Ambient.Or.OAH, General_Samples)
+
+bartlett.test(Glu..mmol.L. ~ Pregnant.Or.Atresia, General_Samples)
+
+leveneTest(Glu..mmol.L. ~ Ambient.Or.OAH, General_Samples)
+
+leveneTest(Glu..mmol.L. ~ Pregnant.Or.Atresia, General_Samples)
+
+
+# Ambient samples
+
+#bartlett.test(Glu..mmol.L. ~ Consensus_Brood_Condition, Ambient_Only_Samples)
+
+leveneTest(Glu..mmol.L. ~ Consensus_Brood_Condition, Ambient_Only_Samples)
+
+```
+
+
+Review Scedasticity tests (equal variance criteria met?):
+
+General data:
+
+Ambient data:
+
+
+
+Summary results of glucose scedasticity (equal variance of residuals):
+
+General data:
+
+Ambient data:
+
+
+
+Glucose Conclusions Parametric Assumptions Assessment:
+
+General data:
+
+Ambient data:
+
+
+
+# Glucose Stat Tests
+
+Glucose Statistical tests: Two-way anova with general data
+```{r}
+# Glucose Analysis
+# ANOVA Tests
+
+# Testing general factor differences: Treatment & Parturition Outcome
+# Two-Way ANOVA
+
+glu_aov_int <- aov(Glu..mmol.L. ~ Pregnant.Or.Atresia * Ambient.Or.OAH, data = General_Samples)
+summary(glu_aov_int) 
+
+# If Interaction not significant (p-value > 0.05), use additive model
+
+glu_aov_additive <- aov(Glu..mmol.L. ~ Pregnant.Or.Atresia + Ambient.Or.OAH, data = General_Samples)
+summary(glu_aov_additive)
+
+# Post-Hoc Test: 
+# - Tukey's HSD test (parametric)
+# - Scheirer-Ray-Hare test (non-parametric)
+# - Aligned Ranked Transformation (ART): Nonparametric, robust against violations to normality and homoscedasticity
+# - Ordinal Logistic Regression
+
+# Tukey's Honestly Significant Difference Test (Parametric):
+glu_tukey_test <- TukeyHSD(glu_aov_int)
+print(glu_tukey_test)
+
+glu_aov_int %>% tukey_hsd()
+
+```
+Two-Way ANOVA Results:
+Two-way ANOVA **interactive / additive model** results indicate there is **a significant / not significant** difference in **insert parameter** between parturition outcomes, atresia or post-parturition (p-value = ), and there is **a significant / not significant** difference in **insert parameter** between treatment types, ambient or OAH (p-value = ). 
+
+
+
+Glucose Statistical tests: One-way anova with ambient data
+```{r}
+# Glucose
+# ANOVA Tests
+
+# Testing for differences in ambient parturition success metrics
+# One-way ANOVA (parametric) or Kruskal-Wallis test (nonparametric)
+
+glu_aov_ambient <- aov(Glu..mmol.L. ~ Consensus_Brood_Condition, data = Ambient_Only_Samples)
+summary(glu_aov_ambient)
+
+
+# Post-Hoc Test: 
+# - Tukey's HSD (parametric, normality & equal variance across groups)
+# - Kruskal Wallis (nonparametric option)
+# - Dunn's test (non-parametric, conduct after Kruskal-Wallis test)
+
+
+```
+
+One-Way ANOVA Results:
+One-way ANOVA results suggest **a significant / not significant** difference in **insert parameter** exists between parturition success categories. 
+
+
+
+## Glucose Summary
+
+**Parameter Results Summary**: Deciding upon all evidence (data distribution, visuals, tests, parametric assumptions criteria met or not met):
+Assumptions, assumptions, assumptions...
+
+
+Two-Way ANOVA Results (Comparing General Treatment and Parturition Outcome):
+
+
+One-Way ANOVA Results (Comparing Ambient Parturition Success Metric):
+
+
+
+# Na+ : Sodium
+
+
+Sodium Summary Stats
+```{r}
+# Sodium: Na+
+# Summary stats
+
+# General data
+# General_Samples %>%
+#   group_by(Pregnant.Or.Atresia, Ambient.Or.OAH) %>%
+#   summarize(count = n(),
+#             median = round(median(Na...mmol.L.), 3),
+#             mean = round(mean(Na...mmol.L.), 3),)
+#             sd = round(sd(Na...mmol.L.), 3),
+#             cv = round(sd(Na...mmol.L.)/mean(Na...mmol.L.), 3)) %>%
+#   ungroup()
+
+# Ambient data
+# Ambient_Only_Samples %>%
+#   group_by(Ambient.Or.OAH, Consensus_Brood_Condition) %>%
+#   summarize(count = n(),
+#             median = round(median(Na...mmol.L.), 3),
+#             mean = round(mean(Na...mmol.L.), 3),
+#             sd = round(sd(Na...mmol.L.), 3),
+#             cv = round(sd(Na...mmol.L.)/mean(Na...mmol.L.), 3)) %>%
+#   ungroup()
+```
+
+
+
+Sodium Boxplot
+```{r}
+# Sodium: Na+
+
+# Sodium boxplot: General samples
+sodium_general_boxplot <- ggplot(data = General_Samples, aes(x = Pregnant.Or.Atresia, y = Na...mmol.L., fill = Ambient.Or.OAH)) +
+  geom_boxplot(aes(x = Pregnant.Or.Atresia, y = Na...mmol.L., fill = Ambient.Or.OAH)) +
+  geom_point(aes(color = Ambient.Or.OAH), position = position_dodge(width = 0.75), alpha = 0.3, color = "black") +
+  labs(title = "Sodium", x = "Parturition Type", y = "Sodium (mmol/L)") +
+  guides(fill = guide_legend((title = "Treatment Type"))) + 
+  scale_fill_manual(values = c("Ambient" = "#189bff", "OAH" = "#598c78")) +
+  theme_classic() +
+  theme(panel.background = element_rect(fill = "white"),
+        plot.background = element_rect(fill = "white"),
+        legend.background = element_rect(fill = "white", color = "black"),
+        title = element_text(size = 12),
+        plot.title = element_text(size = 30, hjust = 0.5),
+        axis.text.x = element_text(size = 10),
+        axis.text.y = element_text(size = 20),
+        axis.title.x = element_text(size = 20),
+        axis.title.y = element_text(size = 20))
+
+print(sodium_general_boxplot)
+
+ggsave(filename = "data-images/sodium_general_boxplot.pdf", plot = sodium_general_boxplot, device = "pdf")
+ggsave(filename = "data-images/sodium_general_boxplot.png", plot = sodium_general_boxplot, device = "png")
+
+# Sodium boxplot: Ambient Samples
+sodium_ambient_boxplot <- ggplot(data = Ambient_Only_Samples) + 
+  geom_boxplot(aes(x = Consensus_Brood_Condition, y = Na...mmol.L.)) +
+  geom_point(aes(x = Consensus_Brood_Condition, y = Na...mmol.L.), alpha = 0.5, colour = "black") +
+  labs(title = "Sodium", x = "Parturition Success", y = "Sodium (mmol/L)") +
+  facet_wrap(~ Ambient.Or.OAH) +
+  theme_classic() +
+  theme(panel.background = element_rect(fill = "white"),
+        plot.background = element_rect(fill = "white"),
+        legend.background = element_rect(fill = "white", color = "black"),
+        title = element_text(size = 12),
+        plot.title = element_text(size = 30, hjust = 0.5),
+        axis.text.x = element_text(size = 20),
+        axis.text.y = element_text(size = 20),
+        axis.title.x = element_text(size = 20),
+        axis.title.y = element_text(size = 20))
+
+print(sodium_ambient_boxplot)
+
+ggsave(filename = "data-images/sodium_ambient_boxplot.pdf", plot = sodium_ambient_boxplot, device = "pdf")
+ggsave(filename = "data-images/sodium_ambient_boxplot.png", plot = sodium_ambient_boxplot, device = "png")
+
+```
+
+
+Sodium Parametric Assessment
+Data Distribution
+```{r}
+# Sodium: Na+
+# Parametric Assumptions
+
+# Data Distribution
+
+# Frequency Histograms
+
+hist(General_Samples$Na...mmol.L.)
+
+hist(Ambient_Only_Samples$Na...mmol.L.)
+
+
+# Density Histogram
+
+# Density vs normality curve histograms
+# Notes: Maybe set geom_density(alpha = 0.5)?
+
+General_Samples %>%
+  ggplot(aes(x = Na...mmol.L.)) +
+  geom_histogram(binwidth = 0.01) +
+  stat_function(fun = dnorm, args = c(mean = mean(General_Samples$Na...mmol.L.), sd = sd(General_Samples$Na...mmol.L.)), col = "green") +
+  geom_density(col = "black") +
+  labs(title = "Sodium General Sample Distribution")
+
+# With legend label
+General_Samples %>%
+  ggplot(aes(x = Na...mmol.L.)) +
+  geom_histogram(binwidth = 0.01) +
+  stat_function(fun = dnorm, args = c(mean = mean(General_Samples$Na...mmol.L.), sd = sd(General_Samples$Na...mmol.L.)), aes(col = "Normal Distribution"), show.legend = TRUE) +
+  geom_density(aes(col = "Sample Density"), show.legend = TRUE) +
+  labs(title = "Sodium General Sample Distribution") +
+  scale_color_manual("Distribution", values = c("Normal Distribution" = "green", "Sample Density" = "black"))
+
+Ambient_Only_Samples %>%
+  ggplot(aes(x = Na...mmol.L.)) +
+  geom_histogram(binwidth = 0.01) +
+  stat_function(fun = dnorm, args = c(mean = mean(Ambient_Only_Samples$Na...mmol.L.), sd = sd(Ambient_Only_Samples$Na...mmol.L.)), col = "green") +
+  geom_density(col = "black") +
+  facet_grid(~ Ambient.Or.OAH) +
+  labs (title = "Sodium Ambient Sample Distribution")
+
+# With legend label
+Ambient_Only_Samples %>%
+  ggplot(aes(x = Na...mmol.L.)) +
+  geom_histogram(binwidth = 0.01) +
+  stat_function(fun = dnorm, args = c(mean = mean(Ambient_Only_Samples$Na...mmol.L.), sd = sd(Ambient_Only_Samples$Na...mmol.L.)), aes(col = "Normal Distribution"), show.legend = TRUE) +
+  geom_density(aes(col = "Sample Density"), show.legend = TRUE) +
+  labs(title = "Sodium Ambient Sample Distribution") +
+  scale_color_manual("Distribution", values = c("Normal Distribution" = "green", "Sample Density" = "black"))
+```
+
+
+
+# Na+ Stat Tests
+
+
+
+# Na+ Summary
+
+
+
+# Cl- : Chloride
+
+
+# Cl- Stat Tests
+
+
+
+# Cl- Summary
+
+
+
+# K+ : Potassium
+
+
+
+# K+ Stat Tests
+
+
+
+# K+ Summary
+
+
+
+# Ca+2 : Calcium
+
+
+
+# Ca+2 Stat Tests
+
+
+
+# Ca+2 Summary
+
+
+
+
+

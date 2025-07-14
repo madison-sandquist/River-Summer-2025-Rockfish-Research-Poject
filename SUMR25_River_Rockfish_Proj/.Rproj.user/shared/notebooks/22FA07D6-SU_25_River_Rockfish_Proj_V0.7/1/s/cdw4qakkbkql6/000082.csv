@@ -1,0 +1,6 @@
+"0","# Exploratory investigations..."
+"0","lm_ambient_fecund_int <- lm(Hct.... ~ Consensus_Brood_Condition * Consensus_Fecundity, data = Ambient_Only_Samples) "
+"0","plot(lm_ambient_fecund_int)"
+"2","G2;H2;Warningh: not plotting observations with leverage one:
+  4, 20, 22g
+"

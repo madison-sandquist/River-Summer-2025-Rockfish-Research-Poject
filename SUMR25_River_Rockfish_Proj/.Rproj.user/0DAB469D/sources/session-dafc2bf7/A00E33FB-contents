@@ -1,0 +1,181 @@
+---
+title: "Lab Blood Processing 2024"
+author: "Madison Sandquist"
+date: "2024-06-27"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This is a skeleton code, meaning you will use it as an outline to help you create your own code.
+
+# Download Libraries needed
+```{r, include = FALSE}
+library(tidyverse)
+library(zoo)
+library(lme4)
+library(lmerTest)
+library(rlang)
+library(ggpubr)  # For visualization of assumptions
+library(car)     # For checking homogeneity of variance
+```
+
+# Input csvs 
+You will need the following csv:
+- ABL90 csv
+- metadata csv 
+```{r}
+df <- read.csv("ABL90_Raw.csv")
+metadata <- read.csv("2024_Atresiafish_Guide.csv") 
+```
+
+
+# Filter abl90 data 
+```{r}
+#Delete Unknowns (aka no patient id)
+df2 <- df %>% 
+  filter(Status == "?")
+
+#separate blood, plasma, and flash frozen plasma 
+df3 <- separate(df2, 'Patient.ID', into = c("Patient.ID", "Type"), sep = ",")
+
+#make sure its a character 
+df3$Patient.ID <- as.character(df3$Patient.ID)
+
+#changes NAs to zeros so the str.ng code will work... idk why 
+df3 <- df3 %>%
+  mutate(`Errors.detected.during.measurement` = ifelse(is.na(`Errors.detected.during.measurement`), 0, `Errors.detected.during.measurement`))
+
+#Deletes rows w/ errors using string detect, 
+df4 <- df3 %>% 
+  filter(!is.na(Type)) %>% 
+  filter(!str_detect(`Errors.detected.during.measurement`, 'Insufficient sample'))
+
+#Delete rows w/ inhomogeneous sample
+df5 <- df4 %>% 
+  filter(!is.na(Type)) %>% 
+  filter(!str_detect(`Errors.detected.during.measurement`, 'Inhomogeneous sample'))
+
+#Filters only blood samples
+df5_blood <- df5 %>% 
+  filter(Type == "b") #filters out only blood samples because we will not be using plasma
+```
+
+# Join data together
+```{r}
+# rename to join
+metadata <- metadata %>% 
+  rename('Patient.ID' = "Fish.ID")
+# join by patient ID
+
+df6 <- df5_blood %>%
+  inner_join(metadata, by = "Patient.ID") %>% 
+  rename('Treatment' = "Ambient.or.OAH")
+```
+
+# Sample sizes for each treatment
+```{r}
+df_sample <- df6 %>%
+  group_by(Treatment, Pregnant.or.Atresia) %>%
+  summarise(sample_size = n_distinct(Patient.ID), .groups = "drop")
+
+print(df_sample)
+```
+
+# Hematocrit 
+```{r}
+# Separate the dataframe to select for HCT... the last line of code there is to filter out an outlier
+hct <- df6 %>% 
+  select(Hct...., Patient.ID, Treatment, Pregnant.or.Atresia) %>% 
+  rename(hct = Hct....) %>% 
+  filter(hct >4)
+
+# Plot the data
+ggplot(hct, aes(x = Pregnant.or.Atresia, y = hct, fill = Treatment)) +
+  geom_boxplot() +
+  theme_classic() +  
+  scale_fill_manual(values = c("OAH" = "indianred", "Ambient" = "cornflowerblue"))+
+  labs(title = "Differences in Hematocrit across Treatments and OAH Stress",
+       x = "Partuition Status",
+       y = "Hematocrit (Hct %)") 
+  
+
+#Stats !
+# Run two-way ANOVA
+anova_model <- aov(hct ~ Pregnant.or.Atresia * Treatment, data = hct)
+# Check ANOVA summary
+summary(anova_model)
+# interaction, ns so remove it and run again
+anova_model <- aov(hct ~ Pregnant.or.Atresia + Treatment, data = hct)
+summary(anova_model)
+
+# Check assumptions:
+# Normality 
+ggqqplot(residuals(anova_model))
+shapiro.test(residuals(anova_model))
+# Homogeneity of variances
+leveneTest(hct ~ Pregnant.or.Atresia * Treatment, data = hct)
+# Both look great
+```
+
+# pH 
+```{r}
+pH <- df6 %>% 
+  select(pH, Patient.ID, Treatment, Pregnant.or.Atresia) %>% 
+  rename(pH = pH)
+
+ggplot(pH, aes(x = Pregnant.or.Atresia, y = pH, fill = Treatment)) +
+  geom_boxplot() +
+  theme_classic() +  
+  scale_fill_manual(values = c("OAH" = "indianred", "Ambient" = "cornflowerblue"))+
+  labs(title = "Differences in pH across Treatments and OAH Stress",
+       x = "Partuition Status",
+       y = "pH") 
+
+# Run two-way ANOVA
+anova_model <- aov(pH ~ Pregnant.or.Atresia * Treatment, data = pH)
+summary(anova_model)
+# against ns, so remove and run again
+anova_model <- aov(pH ~ Pregnant.or.Atresia + Treatment, data = pH)
+summary(anova_model)
+
+# Check assumptions:
+# Normality 
+ggqqplot(residuals(anova_model))
+shapiro.test(residuals(anova_model))
+# Homogeneity of variances
+leveneTest(pH ~ Pregnant.or.Atresia * Treatment, data = pH)
+# Both look great
+```
+# Glucose 
+```{r}
+df6$Glu..mmol.L. <- as.numeric(df6$Glu..mmol.L.)
+
+glu <- df6 %>% 
+  select(Glu..mmol.L., Patient.ID, Treatment, Pregnant.or.Atresia) %>% 
+  rename(glu = Glu..mmol.L.)
+
+ggplot(glu, aes(x = Pregnant.or.Atresia, y = glu, fill = Treatment)) +
+  geom_boxplot() +
+  theme_classic() +  
+  scale_fill_manual(values = c("OAH" = "indianred", "Ambient" = "cornflowerblue"))+
+  labs(title = "Differences in Glucose across Treatments and OAH Stress",
+       x = "Partuition Status",
+       y = "Glucose (mmol/L)") 
+
+# Run two-way ANOVA
+anova_model <- aov(glu ~ Pregnant.or.Atresia * Treatment, data = glu)
+# Check ANOVA summary
+summary(anova_model) #interaction sig so keep it in 
+
+# Check assumptions:
+# Normality 
+ggqqplot(residuals(anova_model))
+shapiro.test(residuals(anova_model)) # not normal
+# Homogeneity of variances
+leveneTest(glu ~ Pregnant.or.Atresia * Treatment, data = glu)
+```
+
+

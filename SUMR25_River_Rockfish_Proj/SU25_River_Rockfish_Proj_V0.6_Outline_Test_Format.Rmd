@@ -1,0 +1,213 @@
+---
+title: "SU25_River_Rockfish_Proj_V0.6_Outline_Test_Format"
+author: "River Mckegney"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+## Paramater Analysis Structure: Here River's Approach To Stats Tests
+
+0: Check sample size
+- n value for general dataset
+- n value for ambient dataset
+
+- Assess how this restricts test prerequisites as I go
+
+
+1: View parameter Boxplot
+- View boxplot of general data: Ambient & OAH, Post-parturition & Atresia
+- View boxplot of Ambient only, parturition success data
+
+
+2: Investigate Parametric Assumptions: To know what stat tests to perform
+
+
+2.1: View data distribution
+- View simple histogram of general data
+- view simple histogram of ambient data
+- View Density vs normality curve histograms (general & ambient data)
+
+- Assess if datasets are normal (unimodel) or not normal (bimodel, etc)
+
+
+2.2: View normality residual qqplots
+
+- Make lm model of general data (interactive/additive two-way ANOVA)
+- View residual qqplot of general data lm model
+- Make lm model of ambient data (one-way ANOVA) 
+- View residual qqplot of ambient data 
+
+code format: ggqqplot(residuals(lm_model))
+
+- Assess if residual qqplot supports normality
+
+
+2.3: Test normality via Shapiro-Wilk normality test
+- Use shapiro_test() on general dataset
+- Use shapiro_test() on ambient dataset
+
+- Shapiro-Wilk test: p-value > 0.05 indicates normality (data is normally distributed)
+
+- Assess if test declares data is normal or not
+
+
+2.4: View residuals vs fitted and other regression plots for scedasticity
+
+- **Ask if aov or lm model should be used in plot(model, which = 1)**
+
+- View residuals vs fitted plot of general dataset 
+- View residual vs fitted plot of ambient dataset 
+
+- A straight scatter plot of sample points following closely along the Z-line indicate equal variance (homoscedasticity, parametric assumption met).
+- Fanning or waving (ie. S-shapes showing skewness) patterns are indicators of unequal variance (heteroscedasticity, violation of equal variance)
+
+- Assess if residuals of datasets show equal variance (homoscedasticity)
+
+
+2.5: Test for equal variance 
+- Use appropriate test (Bartlett's, Levene's Test, or Fligner-Killeen test) on general and ambient datasets
+
+- For all variance tests: p-value > 0.05 indicates there is no significant difference in variance between groups (homoscedasticity, parametric assumption of equal variance met)
+
+- Assess if test supports or does not support equal variance assumption
+
+
+2.6: Summarize overall findings of Parametric assessments and assumptions (these conclusions help to decide what stat tests to use for parameters and factors for either dataset)
+
+
+3: If parametric assumptions are not met, or distribution is odd, consider transforming data. Then re-check parametric visualizations & tests
+
+
+4: Conduct ANOVA tests:
+
+
+4.1: Testing for significant differences between groups
+
+
+----
+
+- Test options for general interactive/additive dataset:
+
+ - Two-way ANOVA model: parametric data (adequate sample size n = ??, normal distribution, equal variance)
+ 
+      - Note: Route depends on balanced or unbalanced design
+      - Balanced design requires equal samples size between levels (Pregnant or Atresia & Ambient or OAH) in groups (treatment and parturition outcome)
+      
+**Balanced Design**
+        - Code format: Interactive and additive models.
+        
+          > pH_aov_int <- aov(pH ~ Pregnant.Or.Atresia * Ambient.Or.OAH, data = general_samples)
+          > summary(pH_aov_int)
+
+        - Pr(>F) < 0.05 indicates significant difference
+        - If interaction not significant, use additive model
+        
+         > pH_aov_additive <- aov(pH ~ Pregnant.Or.Atresia + Ambient.Or.OAH, data = general_samples) 
+         > summary(pH_aov_additive)
+         
+        - Pr(>F) < 0.05 indicates significant difference between at least one of the groups
+        - If significant, a post-hoc test is required to know which groups are different from eachother
+        
+        - Balanced Post-Hoc for general dataset:
+        - Tukey HSD test: Parametric test
+        
+        > tukeyHSD(pH_aov_int)
+        
+        > tukeyHSD(pH_aov_additive)
+        
+        - p adj < 0.05 indicates significant difference
+
+         - If general data is nonparametric, use Scheirer-Ray-Hare test
+         - Scheirer-Ray-Hare test reccomends balanced design and a minimum sample size of n = 5 per level
+         
+         > library(rcompanion) ~ for Scheirer Ray Hare test
+         > library(FSA) ~ for Dunns test
+         > scheirerRayHare(pH ~ Pregnant.Or.Atresia + Ambient.Or.OAH, data = general_samples)
+         
+         - Note: By default this uses a type-II sum-of-squares 
+         - p-value < 0.5 indicates significant difference
+         - Post-Hoc involves Dunn's Test
+         
+Non-Parametric Two-Way ANOVA Like Tests: Options include
+- Scheirer-Ray-Hare test (non-parametric)
+
+- Aligned Ranked transformation (ART) ANOVA: Nonparametric test, robust to non-normally distributed data and data with unequal variance. Designed to work with two or more factors and their effects.
+
+- Ordinal Logistic Regression: 
+
+        
+**Unbalanced Design**
+        
+Unbalanced parametric format:
+     
+For datasets testing for interactions across multiple factors with unequal sample sizes between levels, type II and type III sum of squares is often recommended opposed to type I. 
+
+Note: If interaction is significant, a two-way ANOVA test should not be utilized??? (Klasson Thomas, 2020)
+
+Type II sum of squares: May hold greater power than type III, so use for unbalanced dataset if low interaction is being detected. Type II test is sensitive to how unbalanced the data is, and use with caution when assessing interactive effects.
+
+Type III sum of squares: Also recommended for unbalanced datasets. 
+       > library(car) 
+       > pH_aov_int <- aov(pH ~ Pregnant.Or.Atresia * Ambient.Or.OAH, data = general_samples)
+       > Anova(pH_aov_int, type = "III")
+         
+     - Unbalanced nonparametric Scheirer Ray Hare test:
+     
+       > scheirerRayHare(pH ~ Pregnant.Or.Atresia + Ambient.Or.OAH, data = general_samples, type = 2)
+       
+     - Uses a type-I sum-of-squares and will display different values than the type II-sum-of-squares when unbalanced.
+
+     - For unbalanced data consider type II ot type III sum of squares design
+
+----
+
+         
+- Test options for ambient parturition success dataset (one factor treatment, multiple groups):
+
+ - One-way ANOVA model: parametric data (adequate sample size n = ??, normal distribution, equal variance)
+      - Code-format:
+      
+        > param_aov_ambient <- aov(parameter ~ Brood_condition, data = ambient_only)
+        > summary(param_aov_ambient)
+      
+      - Assessment:
+      - p-value < 0.05 indicates significant difference between one or more groups
+      - If significant, conduct post-hoc via Tukey HSD test
+
+  - Post-Hoc for ambient: 
+  - If ambient data parametric, conduct Tukey's HSD test
+     - Tukey's HSD test code:
+     
+       > TukeyHSD(param_aov_ambient)
+  
+  
+  - If ambient data non-parametric, conduct Kruskal-Wallis test
+     - Kruskal-Wallis test is nonparametric alternative to one-way ANOVA
+     - Kruskal_wallis test code:
+     
+      > kruskal.test(parameter ~ Brood_condition, data = ambient_only)
+      
+     - p-value < 0.05 is significant
+     - if significant, at least one of the groups are different
+     
+     - If Kruskal-Wallis test significant, conduct a pairwise Wilcox test
+       - pairwise wilcox test code:
+       
+        > pairwise.wilcox.test(ambient_only$parameter, ambient_only$consensus_brood_condition, p.adjust.method = "BH")
+       
+     - Note: Bypass wilcox test, and proceed with Dunn's test if KW test is accepted or rejected. The pairwise wilcox test is not valid if Kruskal-Wallis test is not significant (ie, fails).
+     
+     - If Kruskal-Wallis test is rejected, conduct Dunn's test or Conocer-Iman test
+     
+    - Dunns test code:
+    
+     > library(FSA)
+     > dunnTest(parameter ~ Consensus_brood_condition, data = ambient_only, method = "???")
+       
+    - If Kruskal-Wallis test is rejected (not significant), the Conover_Iman test is a more powerful test to reject null compared to Dunn's test.
+    - Conover_Iman test can only be applied when Kruskal-Wallis test is rejected.
+    - Conover-Iman test code:
+    
+     > conover.test(ambient_only$parameter, ambient_only$consensus_brood_condition)
+ 
+

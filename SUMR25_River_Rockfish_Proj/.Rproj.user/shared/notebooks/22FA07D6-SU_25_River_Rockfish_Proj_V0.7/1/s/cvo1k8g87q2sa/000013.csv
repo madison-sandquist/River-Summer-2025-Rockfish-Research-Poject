@@ -1,0 +1,60 @@
+"0","# pH"
+"0","# Parametric Assumptions"
+"0","# Assessing Homoscedasticity: Equal Variance of Residuals"
+"0",""
+"0","# Testing scedasticity: Options listed below"
+"0","# - F-test = var.test(): For normally distributed data with two groups only)"
+"0","# - Bartlett's test = bartlett.test(): For normally distributed data with multiple groups. Sensitive to normality)"
+"0","# - Levene's Test = leveneTest(): Similar to Bartlett's test, but more robust to variance, less sensitive to normality)"
+"0","# - Fligner-Killeen test = fligner.test(): A nonparametric test, made to be even more robust against non-normal distributed data"
+"0","# - Breusch Pagan test = library(lmtest) + bptest(): test for scedasticity in linear regression models"
+"0",""
+"0",""
+"0","# Bartlett's test"
+"0","# Note Error Code: Requires at least 2 obs per group"
+"0",""
+"0","# General samples"
+"0","bartlett.test(pH ~ Ambient.Or.OAH, General_Samples)"
+"1","
+	Bartlett test of homogeneity of variances
+
+data:  pH by Ambient.Or.OAH
+Bartlett's K-squared = 0.28687, df = 1, p-value = 0.5922
+
+"
+"0","bartlett.test(pH ~ Pregnant.Or.Atresia, General_Samples)"
+"1","
+	Bartlett test of homogeneity of variances
+
+data:  pH by Pregnant.Or.Atresia
+Bartlett's K-squared = 4.2894, df = 1, p-value = 0.03835
+
+"
+"0","leveneTest(pH ~ Ambient.Or.OAH, General_Samples)"
+"2","G2;H2;Warningh in leveneTest.default(y = y, group = group, ...) :
+  group coerced to factor.g
+"
+"1","Levene's Test for Homogeneity of Variance (center = median)
+      Df F value Pr(>F)
+group  1  0.7167 0.4044
+      28               
+"
+"0","leveneTest(pH ~ Pregnant.Or.Atresia, General_Samples)"
+"2","G2;H2;Warningh in leveneTest.default(y = y, group = group, ...) :
+  group coerced to factor.g
+"
+"1","Levene's Test for Homogeneity of Variance (center = median)
+      Df F value Pr(>F)
+group  1   2.814 0.1046
+      28               
+"
+"0","# Ambient samples"
+"0",""
+"0","#bartlett.test(pH ~ Consensus_Brood_Condition, Ambient_Only_Samples)"
+"0",""
+"0","leveneTest(pH ~ Consensus_Brood_Condition, Ambient_Only_Samples)"
+"1","Levene's Test for Homogeneity of Variance (center = median)
+      Df F value Pr(>F)
+group  3  0.7976 0.5112
+      18               
+"

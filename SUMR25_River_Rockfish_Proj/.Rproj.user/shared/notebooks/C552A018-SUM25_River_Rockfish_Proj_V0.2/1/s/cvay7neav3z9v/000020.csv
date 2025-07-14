@@ -1,0 +1,5 @@
+"0","ABL_merged %>%
+  group_by(Ambient.Or.OAH, Pregnant.or.Atresia, Brood_Condition) %>%
+  summarise(n_size = n_distinct(Patient.ID_edited), .groups = ""drop"")
+"
+"0","print(sample_size_table)"

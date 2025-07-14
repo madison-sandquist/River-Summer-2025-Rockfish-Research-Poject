@@ -1,0 +1,15 @@
+"0","# pH"
+"0","# Summary stats"
+"0",""
+"0","# General data"
+"0","General_Samples %>%"
+"0","  group_by(Pregnant.Or.Atresia, Ambient.Or.OAH) %>%"
+"0","  summarize(count = n(),"
+"0","            median = round(median(pH), 3),"
+"0","            mean = round(mean(pH), 3),"
+"0","            sd = round(sd(pH), 3),"
+"0","            cv = round(sd(pH)/mean(pH), 3)) %>%"
+"0","  ungroup()"
+"2","[38;5;255m`summarise()` has grouped output by 'Pregnant.Or.Atresia'. You can override
+using the `.groups` argument.[39m
+"

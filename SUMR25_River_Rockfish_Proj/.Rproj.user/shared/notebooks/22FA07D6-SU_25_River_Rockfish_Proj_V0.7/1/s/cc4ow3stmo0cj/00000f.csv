@@ -1,0 +1,20 @@
+"0","# hct"
+"0","# ANOVA Tests"
+"0",""
+"0","# Testing for differences in ambient parturition success metrics"
+"0","# One-way ANOVA (parametric) or Kruskal-Wallis test (nonparametric)"
+"0",""
+"0","hct_aov_ambient <- aov(Hct.... ~ Consensus_Brood_Condition, data = Ambient_Only_Samples)"
+"0","summary(hct_aov_ambient)"
+"1","                          Df Sum Sq Mean Sq F value Pr(>F)  
+Consensus_Brood_Condition  3   81.8  27.266   3.439  0.039 *
+Residuals                 18  142.7   7.928                 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+"
+"0","# Post-Hoc Test: "
+"0","# - Tukey's HSD (parametric, normality & equal variance across groups)"
+"0","# - Kruskal Wallis (nonparametric option)"
+"0","# - Dunn's test (non-parametric, conduct after Kruskal-Wallis test)"
+"0",""
+"0",""

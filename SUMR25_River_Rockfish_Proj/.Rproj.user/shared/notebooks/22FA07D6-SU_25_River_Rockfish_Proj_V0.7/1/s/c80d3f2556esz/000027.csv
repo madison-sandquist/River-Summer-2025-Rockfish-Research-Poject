@@ -1,0 +1,7 @@
+"0",""
+"0","Ambient_Only_Samples %>%"
+"0","  mutate(predicted_values = fitted(lm_ambient_fecund_add),"
+"0","         residual_sqrt = sqrt(abs(rstandard(lm_ambient_fecund_add)))) %>%"
+"0","  ggplot(aes(predicted_values, residual_sqrt)) +"
+"0","  geom_point() +"
+"0","  geom_smooth()"

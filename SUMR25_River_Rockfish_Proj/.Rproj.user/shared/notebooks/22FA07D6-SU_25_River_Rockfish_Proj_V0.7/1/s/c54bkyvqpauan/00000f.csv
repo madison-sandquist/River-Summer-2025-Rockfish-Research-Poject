@@ -1,0 +1,10 @@
+"0","# Sodium: Na+"
+"0","# Parametric Assumptions"
+"0",""
+"0","# Data Distribution"
+"0",""
+"0","# Frequency Histograms"
+"0",""
+"0","hist(General_Samples$Na...mmol.L.)"
+"2","G1;H1;Errorh in hist.default(General_Samples$Na...mmol.L.) : 'x' must be numeric
+g"
