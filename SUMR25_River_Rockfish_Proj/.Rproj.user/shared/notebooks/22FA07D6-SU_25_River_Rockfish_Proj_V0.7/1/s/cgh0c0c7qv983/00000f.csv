@@ -1,0 +1,155 @@
+"0","# Load packages"
+"0","library(gridExtra) # For using grid.table to save tables as images"
+"2","G2;H2;Warningh: package ‘gridExtra’ was built under R version 4.4.3g
+"
+"0","library(flextable) # Alternative method to save df as image"
+"2","G2;H2;Warningh: package ‘flextable’ was built under R version 4.4.3g
+"
+"2","G3;Registered S3 method overwritten by 'data.table':
+  method           from
+  print.data.table     
+g"
+"0","library(tidyverse)"
+"2","G2;H2;Warningh: package ‘lubridate’ was built under R version 4.4.3g
+"
+"2","── [1mAttaching core tidyverse packages[22m ──────────────────────── tidyverse 2.0.0 ──
+[32m✔[39m [34mdplyr    [39m 1.1.4     [32m✔[39m [34mreadr    [39m 2.1.5
+[32m✔[39m [34mforcats  [39m 1.0.0     [32m✔[39m [34mstringr  [39m 1.5.1
+[32m✔[39m [34mggplot2  [39m 3.5.1     [32m✔[39m [34mtibble   [39m 3.2.1
+[32m✔[39m [34mlubridate[39m 1.9.4     [32m✔[39m [34mtidyr    [39m 1.3.1
+[32m✔[39m [34mpurrr    [39m 1.0.2     
+"
+"2","── [1mConflicts[22m ────────────────────────────────────────── tidyverse_conflicts() ──
+[31m✖[39m [34mdplyr[39m::[32mcombine()[39m masks [34mgridExtra[39m::combine()
+[31m✖[39m [34mpurrr[39m::[32mcompose()[39m masks [34mflextable[39m::compose()
+[31m✖[39m [34mdplyr[39m::[32mfilter()[39m  masks [34mstats[39m::filter()
+[31m✖[39m [34mdplyr[39m::[32mlag()[39m     masks [34mstats[39m::lag()
+[36mℹ[39m Use the ]8;;http://conflicted.r-lib.org/conflicted package]8;; to force all conflicts to become errors
+"
+"0","library(zoo)"
+"2","G3;
+Attaching package: ‘zoo’
+
+g"
+"2","G3;The following objects are masked from ‘package:base’:
+
+    as.Date, as.Date.numeric
+
+g"
+"0","library(lme4)"
+"2","G3;Loading required package: Matrix
+g"
+"2","G3;
+Attaching package: ‘Matrix’
+
+g"
+"2","G3;The following objects are masked from ‘package:tidyr’:
+
+    expand, pack, unpack
+
+g"
+"0","library(lmerTest)"
+"2","G3;
+Attaching package: ‘lmerTest’
+
+g"
+"2","G3;The following object is masked from ‘package:lme4’:
+
+    lmer
+
+g"
+"2","G3;The following object is masked from ‘package:stats’:
+
+    step
+
+g"
+"0","library(rlang)"
+"2","G3;
+Attaching package: ‘rlang’
+
+g"
+"2","G3;The following objects are masked from ‘package:purrr’:
+
+    %@%, flatten, flatten_chr, flatten_dbl, flatten_int, flatten_lgl,
+    flatten_raw, invoke, splice
+
+g"
+"0","library(nortest) # For ad.test"
+"0","library(car) # For homogeneity of variance with leveneTest"
+"2","G2;H2;Warningh: package ‘car’ was built under R version 4.4.3g
+"
+"2","G3;Loading required package: carData
+g"
+"2","G2;H2;Warningh: package ‘carData’ was built under R version 4.4.3g
+"
+"2","G3;
+Attaching package: ‘car’
+
+g"
+"2","G3;The following object is masked from ‘package:dplyr’:
+
+    recode
+
+g"
+"2","G3;The following object is masked from ‘package:purrr’:
+
+    some
+
+g"
+"0","library(rcompanion) # For scheirerRayHare test"
+"2","G2;H2;Warningh: package ‘rcompanion’ was built under R version 4.4.3g
+"
+"0","library(pastecs) # For stat.desc"
+"2","G2;H2;Warningh: package ‘pastecs’ was built under R version 4.4.3g
+"
+"2","G3;
+Attaching package: ‘pastecs’
+
+g"
+"2","G3;The following objects are masked from ‘package:dplyr’:
+
+    first, last
+
+g"
+"2","G3;The following object is masked from ‘package:tidyr’:
+
+    extract
+
+g"
+"0","library(ggpubr) # For assumption plots"
+"2","G2;H2;Warningh: package ‘ggpubr’ was built under R version 4.4.3g
+"
+"2","G3;
+Attaching package: ‘ggpubr’
+
+g"
+"2","G3;The following objects are masked from ‘package:flextable’:
+
+    border, font, rotate
+
+g"
+"0","library(conover.test) # For the conover.Iman() test function"
+"0","library(DescTools) # Contain alternative ConoverTest function"
+"2","G2;H2;Warningh: package ‘DescTools’ was built under R version 4.4.3g
+"
+"2","G3;
+Attaching package: ‘DescTools’
+
+g"
+"2","G3;The following object is masked from ‘package:car’:
+
+    Recode
+
+g"
+"0","library(rstatix) # tidyverse adapted stat tests and mshapiro_test() functions"
+"2","G2;H2;Warningh: package ‘rstatix’ was built under R version 4.4.3g
+"
+"2","G3;
+Attaching package: ‘rstatix’
+
+g"
+"2","G3;The following object is masked from ‘package:stats’:
+
+    filter
+
+g"

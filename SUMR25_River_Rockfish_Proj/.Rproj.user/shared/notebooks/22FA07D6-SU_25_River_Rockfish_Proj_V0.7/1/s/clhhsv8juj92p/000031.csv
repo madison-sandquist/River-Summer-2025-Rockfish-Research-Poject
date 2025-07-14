@@ -1,0 +1,17 @@
+"0","Ambient_Only_Samples %>%
+  group_by(Ambient.Or.OAH, Consensus_Brood_Condition) %>%
+  summarize(count = n(),
+            median = round(median(Na...mmol.L.), 3),
+            mean = round(mean(Na...mmol.L.), 3),
+            sd = round(sd(Na...mmol.L.), 3),
+            cv = round(sd(Na...mmol.L.)/mean(Na...mmol.L.), 3)) %>%
+  ungroup()
+"
+"2","G1;[1m[33mError[39m in `summarize()`:[22m
+[38;5;255m[36mℹ[38;5;255m In argument: `median = round(median(Na...mmol.L.), 3)`.
+[36mℹ[38;5;255m In group 1: `Ambient.Or.OAH = ""Ambient""` and `Consensus_Brood_Condition =
+  Excellent`.[39m
+[1mCaused by error in `round()`:[22m
+[33m![39m non-numeric argument to mathematical function
+[90mRun `]8;;x-r-run:rlang::last_trace()rlang::last_trace()]8;;` to see where the error occurred.[39m
+g"

@@ -93,8 +93,7 @@ code format: ggqqplot(residuals(lm_model))
       - Note: Route depends on balanced or unbalanced design
       - Balanced design requires equal samples size between levels (Pregnant or Atresia & Ambient or OAH) in groups (treatment and parturition outcome)
       
-        - **Balanced Design**:
-      
+**Balanced Design**
         - Code format: Interactive and additive models.
         
           > pH_aov_int <- aov(pH ~ Pregnant.Or.Atresia * Ambient.Or.OAH, data = general_samples)
@@ -110,7 +109,7 @@ code format: ggqqplot(residuals(lm_model))
         - If significant, a post-hoc test is required to know which groups are different from eachother
         
         - Balanced Post-Hoc for general dataset:
-        - Tukey HSD test: 
+        - Tukey HSD test: Parametric test
         
         > tukeyHSD(pH_aov_int)
         
@@ -120,27 +119,45 @@ code format: ggqqplot(residuals(lm_model))
 
          - If general data is nonparametric, use Scheirer-Ray-Hare test
          - Scheirer-Ray-Hare test reccomends balanced design and a minimum sample size of n = 5 per level
+         
          > library(rcompanion) ~ for Scheirer Ray Hare test
          > library(FSA) ~ for Dunns test
          > scheirerRayHare(pH ~ Pregnant.Or.Atresia + Ambient.Or.OAH, data = general_samples)
+         
          - Note: By default this uses a type-II sum-of-squares 
          - p-value < 0.5 indicates significant difference
          - Post-Hoc involves Dunn's Test
          
-        - **Unbalanced Design**
+Non-Parametric Two-Way ANOVA Like Tests: Options include
+- Scheirer-Ray-Hare test (non-parametric)
+
+- Aligned Ranked transformation (ART) ANOVA: Nonparametric test, robust to non-normally distributed data and data with unequal variance. Designed to work with two or more factors and their effects.
+
+- Ordinal Logistic Regression: 
+
         
-     - Unbalanced parametric format:
+**Unbalanced Design**
+        
+Unbalanced parametric format:
      
+For datasets testing for interactions across multiple factors with unequal sample sizes between levels, type II and type III sum of squares is often recommended opposed to type I. 
+
+Note: If interaction is significant, a two-way ANOVA test should not be utilized??? (Klasson Thomas, 2020)
+
+Type II sum of squares: May hold greater power than type III, so use for unbalanced dataset if low interaction is being detected. Type II test is sensitive to how unbalanced the data is, and use with caution when assessing interactive effects.
+
+Type III sum of squares: Also recommended for unbalanced datasets. 
        > library(car) 
        > pH_aov_int <- aov(pH ~ Pregnant.Or.Atresia * Ambient.Or.OAH, data = general_samples)
        > Anova(pH_aov_int, type = "III")
          
      - Unbalanced nonparametric Scheirer Ray Hare test:
      
-       > scheirerRayHare(pH ~ Pregnant.Or.Atresia + Ambient.Or.OAH, data = general_samples, type = 1)
+       > scheirerRayHare(pH ~ Pregnant.Or.Atresia + Ambient.Or.OAH, data = general_samples, type = 2)
        
      - Uses a type-I sum-of-squares and will display different values than the type II-sum-of-squares when unbalanced.
 
+     - For unbalanced data consider type II ot type III sum of squares design
 
 ----
 

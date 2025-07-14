@@ -1,0 +1,8 @@
+"0",""
+"0","Ambient_Only_Samples %>%"
+"0","  ggplot(aes(x = pH)) +"
+"0","  geom_histogram(bins = 20) +"
+"0","  stat_function(fun = dnorm, args = c(mean = mean(Ambient_Only_Samples$pH), sd = sd(Ambient_Only_Samples$pH)), col = ""green"") +"
+"0","  geom_density(col = ""black"") +"
+"0","  facet_grid(~ Ambient.Or.OAH) +"
+"0","  labs (title = ""pH Parturition Success Sample Distribution"")"

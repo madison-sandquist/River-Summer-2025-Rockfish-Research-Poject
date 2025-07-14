@@ -1,0 +1,7 @@
+"0",""
+"0","General_Samples %>%"
+"0","  mutate(predicted_values = fitted(pH_lm_int),"
+"0","         residual_sqrt = sqrt(abs(rstandard(pH_lm_int)))) %>%"
+"0","  ggplot(aes(as.numeric(as.factor(Ambient.Or.OAH)), residual_sqrt)) +"
+"0","  geom_point() +"
+"0","  stat_summary(geom = ""line"", fun = mean, color = ""red"")"
