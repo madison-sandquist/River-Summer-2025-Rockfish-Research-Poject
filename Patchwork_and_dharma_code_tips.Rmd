@@ -1,0 +1,104 @@
+---
+title: "Notes for River"
+author: "Madison Sandquist"
+date: "2025-07-14"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Dharma Package 
+```{r}
+library(DHARMa)
+```
+
+Here is information about the dharma package - https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html
+
+The code is the following - 
+```{r}
+# Run model
+m1 <- lmer(na ~ rolling_avg_10 + (1|date) + (1|Total_Time_hours) + (1|new_gonad_stage) , data = na)
+# Summary of Model
+summary(m1)
+# Extract residuals
+residuals_m1 <- residuals(m1)
+# Run the shapiro 
+shapiro.test(residuals_m1)
+# test the residuals futhur through the dharma package 
+simulated_res <- simulateResiduals(fittedModel = m1) #model looks good
+plot(simulated_res) #model looks good 
+```
+
+## Patchwork 
+```{r}
+library(patchwork)
+```
+
+Here is the information of the patchwork - 
+https://patchwork.data-imaginist.com/
+
+Example code from my thesis that using patchwork 
+```{r}
+# DO plot
+df_do <- df_plot %>% filter(Variable == "DO")
+plot_do <- ggplot(df_do, aes(x = Value, y = dev)) +
+  geom_point(color = full_palette[1], size = 2) +
+  geom_smooth(method = "lm", se = TRUE, color = full_palette[1], linewidth = 1) +
+  labs(x = "DO (mg/L)", y = "Recruitment Deviation", title = "Dissolved Oxygen") +
+  theme_bw() +
+ geom_text(data = df_do %>% distinct(r_squared, p_value),
+          aes(label = paste0("R² = ", round(r_squared, 2), 
+                             "\nP = ", signif(p_value, 3))),
+          x = min(df_do$Value), y = max(df_do$dev),
+          hjust = 0, vjust = 1.2, size = 4, inherit.aes = FALSE)  +
+  larger_axis_theme
+
+                     
+plot_do
+
+# pH plot
+df_ph <- df_plot %>% filter(Variable == "pH")
+plot_ph <- ggplot(df_ph, aes(x = Value, y = dev)) +
+  geom_point(color = full_palette[1], size = 2) +
+  geom_smooth(method = "lm", se = TRUE, color = full_palette[1], linewidth = 1) +
+  labs(x = "pH", y = NULL, title = "pH") +
+  theme_bw() +
+  theme(axis.title.y = element_blank(),
+      axis.ticks.y = element_blank()) +
+ geom_text(data = df_ph %>% distinct(r_squared, p_value),
+          aes(label = paste0("R² = ", round(r_squared, 2), 
+                             "\nP = ", signif(p_value, 3))),
+          x = min(df_ph$Value), y = max(df_ph$dev),
+          hjust = 0, vjust = 1.2, size = 4, inherit.aes = FALSE) +
+  scale_color_manual(values = ESM_colors, name = "Model") +
+  larger_axis_theme
+
+
+# Temperature plot
+df_temp <- df_plot %>% filter(Variable == "Temperature")
+
+plot_temp <- ggplot(df_temp, aes(x = df_temp$Value, y = dev)) +
+  geom_point(color = full_palette[1], size = 2) +
+  geom_smooth(method = "lm", se = TRUE, color = full_palette[1], linewidth = 1) +
+  labs(x = "Temperature (°C)", y = NULL, title = "Temperature") +
+  theme_bw() +
+  theme(axis.title.y = element_blank(),
+        axis.ticks.y = element_blank()) +
+geom_text(data = df_temp %>% distinct(r_squared, p_value),
+          aes(label = paste0("R² = ", round(r_squared, 2), 
+                             "\nP = ", signif(p_value, 3))),
+          x = min(df_temp$Value), y = max(df_temp$dev),
+          hjust = 0, vjust = 1.2, size = 4, inherit.aes = FALSE) +
+  scale_color_manual(values = ESM_colors, name = "Model") +
+  larger_axis_theme
+
+
+# Combined plot is the money maker
+
+combined_plot <- plot_do + plot_ph + plot_temp + 
+  plot_layout(ncol = 3, guides = "collect") & 
+  theme(axis.title.y = element_text(size = 14))
+```
+
