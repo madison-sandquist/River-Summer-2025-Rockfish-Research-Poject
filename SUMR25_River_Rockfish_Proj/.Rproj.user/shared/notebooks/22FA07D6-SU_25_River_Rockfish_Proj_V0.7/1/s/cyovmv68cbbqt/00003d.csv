@@ -1,0 +1,7 @@
+"0",""
+"0","# One-Way ANOVA model: Ambient Parturition Success comparison"
+"0","lm(Glu..mmol.L. ~ Consensus_Brood_Condition, data = Ambient_Only_Samples) %>%"
+"0","plot()"
+"2","G2;H2;Warningh: not plotting observations with leverage one:
+  4g
+"

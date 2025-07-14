@@ -1,0 +1,10 @@
+"0","# Ambient samples"
+"0","Ambient_Only_Samples %>%"
+"0","  summarise(pH, Brood_Condition) %>%"
+"0","  stat.desc(norm = TRUE)"
+"2","G2;H2;Warningh: [38;5;255mReturning more (or less) than 1 row per `summarise()` group was deprecated in dplyr 1.1.0.
+[36mℹ[38;5;255m Please use `reframe()` instead.
+[36mℹ[38;5;255m When switching from `summarise()` to `reframe()`, remember that `reframe()` always
+  returns an ungrouped data frame and adjust accordingly.
+[90mCall `lifecycle::last_lifecycle_]8;;ide:run:warnings()warnings()]8;;` to see where this warning was generated.[38;5;255m[39mg
+"
